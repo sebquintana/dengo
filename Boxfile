@@ -1,0 +1,14 @@
+web1: #component type & number
+  name: dengo            
+  shared_writable_dirs:
+    - var/cache
+  document_root: app
+  php_version: 5.3.23
+  php_extensions:
+    - mysql
+    - mcript
+    - pdo
+     
+db1: #component type & number 
+  name: dengoDB            
+  type: mysql
