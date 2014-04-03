@@ -1,7 +1,10 @@
 <?php
 
-class Source extends Eloquent {
-	protected $guarded = array();
+class Source extends Eloquent{
+	
+	protected $table = 'sources';
 
-	public static $rules = array();
+	private $timestamp = false;
+	//protected $guarded = array('id');
+
 }

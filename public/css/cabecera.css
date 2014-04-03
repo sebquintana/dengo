@@ -1,0 +1,54 @@
+@charset "utf-8";
+/* CSS Document */
+
+.contenedorCabecera{
+	background:url(../img/fondoCabecera.png);
+	/*background:#000000;*/
+	background-position:bottom;
+	
+	position:relative;
+	height:70px;
+	width:100%;
+	/*background:#2c516e;*/
+	background-repeat:repeat;
+	
+	
+}
+.cabecera{ 
+	
+	/*background-color:#2c516e;
+	background:url(../img/fondoCabecera.png);*/
+	width: 920px;
+	height: 70px;
+	margin-right: auto;
+	margin-left: auto;
+	margin-top:10px;
+	position:relative;
+	background-repeat:repeat;
+} 
+
+.fechaYHora{
+	position:absolute;
+	top:55px;
+	left:125px;
+	font-size:11px;
+	color:#CCCCCC;
+	width:auto;
+	text-align: center;
+	font-weight:500;
+	cursor:default;
+
+}
+
+.logo{
+	position:absolute;
+	left:0;
+	top:0;
+}
+
+.redesSociales{
+	width: 250px; 
+	height: 30px;  
+	margin-top:35px;
+	float:right;
+}

@@ -1,0 +1,49 @@
+@charset "utf-8";
+/* CSS Document */
+
+.emptyDiv{
+	background:#111111;
+	height:15px;
+	width: 920px;
+	margin-left:auto;
+	margin-right:auto;
+}
+.barraInferior{ 
+	text-align: left;
+	background-color:#111111;
+	width: 900px;
+	height:45px;
+	margin-right: auto;
+	margin-left: auto;
+	margin-top:-13px;
+	position:relative;
+	font-size:13px;
+	font-weight:300;
+	color:#CCCCCC;
+	padding-left:10px;
+	padding-right:10px;
+	padding-top:2px;
+	behavior:url(../lib/border-radius.htc);
+	border-radius: 9px;
+	-moz-border-radius: 9px;
+	-webkit-border-radius: 9px;
+	-o-border-radius: 9px;
+	-khtml-border-radius: 9px;
+
+} 
+.contact{
+	float:left;
+	display:inline-block;
+}
+.facebookYTwitter {
+	text-decoration:none;
+	font-size:12px;
+	font-weight:600;
+	color:#CCCCCC;
+	float:right;
+	display:inline-block;
+}
+.mail{
+color:#CCCCCC;
+text-decoration:none;
+}

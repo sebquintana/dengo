@@ -1,0 +1,230 @@
+@charset "utf-8";
+.titulares {
+	font-weight:300;
+	font-family: Arial, Georgia, "Times New Roman", serif;
+	font-size:20px;
+	color:#000000;
+	text-decoration:none;
+}
+.descripcion {
+	/*font-family: Palatino, Georgia;*/
+	font-size: 16px;
+	color: #000000;
+}
+.search{
+	font-size: 15px;
+	color: #FFFFFF;
+}
+.diario {
+/*	font-family: Palatino, Georgia;*/
+	font-size: 42px;
+	color: #000000;
+	font-weight: bolder;
+}
+
+.diario2 {
+	font-size: 24px;
+	color:#000000;
+	font-weight: bold;
+}
+
+.carouselContainer{
+	visibility:hidden;
+	background-color:#FFFFFF;
+	margin-left:auto;
+	margin-right:auto;
+	width:900px;
+	padding:6px 0px 6px 0px;
+	opacity: 0.9;
+    -moz-opacity: 0.9;
+    filter: alpha(opacity=90);
+	
+	behavior:url(../lib/border-radius.htc);
+	border-radius: 9px;
+	-moz-border-radius: 9px;
+	-webkit-border-radius: 9px;
+	-o-border-radius: 9px;
+	-khtml-border-radius: 9px;
+}
+
+.rightContainer{
+	float:right;
+	width:735px;	
+}
+
+.leftContainer{
+	float:left;
+	margin-top:0px;
+	margin-bottom:20px;
+	position:relative;
+	width:140px;
+}
+.cuerpoContainer{
+	/*opacity: 0.3;
+	-moz-opacity: 0.3;
+	-khtml-opacity: 0.33;
+	filter: alpha(opacity=30);*/
+	background:url(../img/backCuerpoContainer.png);
+	width:900px;
+	padding: 10px 10px 10px 10px;
+	margin-left:auto;
+	margin-right:auto;
+	display:none;
+	}
+.cuerpo{ 
+	width: 900px;
+	margin-top:0px;
+	margin-right: auto;
+	margin-left: auto;
+	margin-bottom:10px;	
+}
+
+.sourceInfo{
+	/*background:#a3b4bf;*/
+	border:solid;
+	border-color:#000000;
+	border-width:0px;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:20px;
+	text-align:left;
+	vertical-align:middle;
+	behavior:url(../lib/border-radius.htc);
+	border-radius: 12px;
+	-moz-border-radius: 12px;
+	-webkit-border-radius: 12px;
+	-o-border-radius: 12px;
+	-khtml-border-radius: 12px;
+}
+	
+.searchInfo{
+	background:#333333;
+	width:450px;
+	margin-bottom:0px;
+	word-wrap: break-word;
+	padding: 10px 10px 10px 10px;
+	line-height:18px;
+	
+	behavior:url(../lib/border-radius.htc);
+	border-radius: 9px;
+	-moz-border-radius: 9px;
+	-webkit-border-radius: 9px;
+	-o-border-radius: 9px;
+	-khtml-border-radius: 9px;
+}
+
+.resaltado{
+	background: rgb(177, 253, 170);
+	color: #000000;
+}
+
+
+body {
+	font-family: Arial, Georgia, "Times New Roman", serif;
+	padding: 0;
+	margin: auto;
+	font-size:24px;
+	color:#FFFFFF;
+	background:#a3b4bf;
+	background:url(../img/back.png);
+}
+
+.pagina{ 
+	text-align: center;
+	background-color:#333333;
+	height:auto;
+	margin-top:-14px;
+	margin-right: auto;
+	margin-left: auto;
+	padding-top:5px;
+	padding-bottom:2px;
+	display:block;
+	word-wrap: break-word;
+	border:solid;
+	border-color:#000000;
+	border-width:0px;
+	
+	behavior:url(../lib/border-radius.htc);
+	border-radius: 9px;
+	-moz-border-radius: 9px;
+	-webkit-border-radius: 9px;
+	-o-border-radius: 9px;
+	-khtml-border-radius: 9px;
+}
+.newsContainer{
+	border:dotted;
+	border-color:#000000;
+	border-width:0px;
+	padding: 10px 10px 10px 10px;
+	margin: 5px 10px 10px 10px;
+	background-color:#EEEEEE;
+	
+	behavior:url(../lib/border-radius.htc);
+	border-radius: 9px;
+	-moz-border-radius: 9px;
+	-webkit-border-radius: 9px;
+	-o-border-radius: 9px;
+	-khtml-border-radius: 9px;
+	
+}
+
+.newsImage{
+	behavior:url(../lib/border-radius.htc);
+	border-radius: 9px;
+	-moz-border-radius: 9px;
+	-webkit-border-radius: 9px;
+	-o-border-radius: 9px;
+	-khtml-border-radius: 9px;
+}
+.newsInfo{
+
+}
+.newsInfoFont{
+	text-decoration:none;
+	font-family: Arial, Georgia, "Times New Roman", serif;
+	font-size:14px;
+	color:#333333;
+	background-color:#FFFFFF;
+	cursor:default;
+}
+
+.newsPubDate{
+	margin-top:15px;
+	font-weight:bold;
+	font-family: Arial, Georgia, "Times New Roman", serif;
+	font-size:14px;
+	color:#333333;
+	cursor:default;
+	float:left;
+}
+
+.newsTools{
+	text-align:right;
+}
+.newsToolsFont{
+	text-decoration:none;
+	font-family: Arial, Georgia, "Times New Roman", serif;
+	font-size:14px;
+	color:#333333;
+}
+
+.adsenseContainer{
+	background:#333333;
+	margin-top:30px;
+	margin-left:auto;
+	margin-right:auto;
+	width:120px;
+	height:240px;
+	behavior:url(../lib/border-radius.htc);
+	border-radius: 9px;
+	-moz-border-radius: 9px;
+	-webkit-border-radius: 9px;
+	-o-border-radius: 9px;
+	-khtml-border-radius: 9px;
+	padding:11px 11px 11px 11px;
+	position:fixed;
+	top:400px;
+	z-index:1;
+	display:none;
+}
+
