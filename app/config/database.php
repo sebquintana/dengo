@@ -51,13 +51,23 @@ return array(
 			'database' => __DIR__.'/../database/production.sqlite',
 			'prefix'   => '',
 		),
-
+/*
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
 			'database'  => 'dengoDB',
 			'username'  => 'root',
 			'password'  => 'root',
+			'charset'   => 'utf8',
+			'collation' => 'utf8_unicode_ci',
+			'prefix'    => '',
+		),*/
+		'mysql' => array(
+			'driver'    => 'mysql',
+			'host'      => '$_SERVER["DB1_HOST"]',
+			'database'  => '$_SERVER["DB1_NAME"]',
+			'username'  => '$_SERVER["DB1_USER"]',
+			'password'  => '$_SERVER["DB1_PASS"]',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',

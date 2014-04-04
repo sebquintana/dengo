@@ -13,7 +13,13 @@ web1: #component type & number
     - app/storage/sessions
     - app/storage/views
     - app/storage/work
-    - app/storage/meta   
+    - app/storage/meta  
+  before_deploy:
+    - "php artisan migrate:install"
+    - "php artisan migrate"
+  after_deploy:
+    - "rm -f storage/cache/*"
+    - "rm -f storage/views/*" 
 db1: #component type & number 
   name: dengoDB            
   type: mysql
