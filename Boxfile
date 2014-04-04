@@ -6,6 +6,14 @@ web1: #component type & number
     - mysql
     - pdo_mysql
     - mcrypt
+shared_writable_dirs:
+    - app/storage/cache
+    - app/storage/database
+    - app/storage/logs
+    - app/storage/sessions
+    - app/storage/views
+    - app/storage/work
+    - app/storage/meta   
 db1: #component type & number 
   name: dengoDB            
   type: mysql
