@@ -6,13 +6,6 @@ web1: #component type & number
     - mysql
     - pdo_mysql
     - mcrypt
-  before_deploy:
-    - "php artisan migrate:install"
-    - "php artisan migrate"
-  after_deploy:
-    - "rm -f storage/cache/*"
-    - "rm -f storage/views/*"    
-
 db1: #component type & number 
   name: dengoDB            
   type: mysql
