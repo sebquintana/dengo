@@ -17,7 +17,7 @@ class HomeController extends BaseController {
 		//$tenTrendingNews = $this->news->where('id', '<', '10')->get();
 		$tenTrendingNews = $this->news->where('image', '!=', '')->take(10)->get();
 		//return View::make('index', ['tenTrendingNews' => $tenTrendingNews]);
-		return View::make('index', array('tenTrendingNews' => $tenTrendingNews);
+		return View::make('index', array('tenTrendingNews' => $tenTrendingNews));
 	}
 
 	public function store () {
