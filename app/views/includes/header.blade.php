@@ -13,8 +13,8 @@
 			<div class="nav-collapse headerMenus">
 				{{ Form::open(array('route' => 'store', 'class' => 'form form-search navbar-search pull-right ')) }}
 					<div class="input-append"> 
-						{{ Form::text('search', null, ['class' => 'search-query']) }}
-						{{ Form::submit('Buscar', ['class' => 'btn btn-buscar']) }}
+						{{ Form::text('search', null, array('class' => 'search-query')) }}
+						{{ Form::submit('Buscar', array('class' => 'btn btn-buscar')) }}
 					 </div> 
 				{{ Form::close() }}
 				
