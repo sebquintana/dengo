@@ -41,7 +41,7 @@ class HomeController extends BaseController {
 	public function show($search) {
 
 		$search = $this->search($search, 'peso');
-		return View::make('search', ['search' => $search]);
+		return View::make('search', array('search' => $search));
 	}
 
 	function search($keyword, $metodo){
