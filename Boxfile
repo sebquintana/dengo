@@ -6,6 +6,8 @@ web1: #component type & number
     - mysql
     - pdo_mysql
     - mcrypt
+    - mysqli
+    - mbstring
   shared_writable_dirs:
     - app/storage/cache
     - app/storage/database
