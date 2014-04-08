@@ -16,9 +16,9 @@ web1: #component type & number
     - app/storage/views
     - app/storage/work
     - app/storage/meta  
-  before_deploy:
-    - "php artisan migrate:install"
-    - "php artisan migrate"
+#  before_deploy:
+#    - "php artisan migrate:install"
+#    - "php artisan migrate"
   after_deploy:
     - "rm -f storage/cache/*"
     - "rm -f storage/views/*" 
