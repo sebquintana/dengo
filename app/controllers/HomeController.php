@@ -24,7 +24,7 @@ class HomeController extends BaseController {
 
 		$search = Input::all();
 
-		$validation = Validator::make($search, ['search' => 'required|min:3']);
+		$validation = Validator::make($search, array('search' => 'required|min:3'));
 
 		if($validation->fails()){
 			// en caso de que el texto de busqueda sea < 3, vuelve al index.
