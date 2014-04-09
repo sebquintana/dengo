@@ -19,8 +19,8 @@ web1: #component type & number
   before_deploy:
 #    - "php artisan migrate:install"
 #    - "php artisan migrate"
-    - "php artisan source:update"
-    - "php artisan news:update"
+#    - "php artisan source:update"
+#    - "php artisan news:update"
   after_deploy:
     - "rm -f storage/cache/*"
     - "rm -f storage/views/*" 

@@ -18,8 +18,8 @@ class RSSParser {
 
 		$news = new News();
 		$news->title = strip_tags($item->title);
-	//$news->shortname = $shortname;
-		$news->pubdate = DateManager::convertToPhp($item->pubDate);
+		//$news->pubdate = DateManager::convertToPhp($item->pubDate);
+		$news->pubdate = DateManager::convertToSql(DateManager::convertToPhp($item->pubDate));
 		$news->source = $source;
 		$news->resume = $this->shorten(strip_tags($item->description));
 		if ($shortname == 'cronica'){

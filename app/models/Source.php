@@ -4,7 +4,7 @@ class Source extends Eloquent{
 	
 	protected $table = 'sources';
 
-	private $timestamp = false;
+	public $timestamps = false;
 	//protected $guarded = array('id');
 
 }

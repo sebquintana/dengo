@@ -2,8 +2,8 @@
 
 class TrendingWordsController extends \BaseController {
 
-	private $news;
-	private $textCleaner;
+	protected $news;
+	protected $textCleaner;
 
 	public function __construct(News $news, TextCleaner $textCleaner) {
 		$this->news = $news;
@@ -85,38 +85,76 @@ class TrendingWordsController extends \BaseController {
 		//
 	}
 
-	public function getTrendingWords(){
-
+	public function createTrendingWords(){
 		$trendingWordsArray = array();
-		$latestsNewsArray = $this->getLatestsNews();
+		$latestsTitlesArray = $this->textCleaner->cleanArray($this->getNewsTitles($this->getLatestsNews()));
 		$position = 0;
-		foreach ($latestsNewsArray as $news) {
-			$titleWordsArray = explode(" ", $news->title);
-			$resumeWordsArray = explode(" ", $news->resume); 
+		$wordFind = false;
+		foreach ($latestsTitlesArray as $title) {
+			$titleWordsArray = explode(" ", $title);
 			foreach ($titleWordsArray as $word) {
-				if($this-textCleaner->isValidWord($word)){
-					$word = new TrendingWord();
-					$trendingWordsArray[$position] = $word;
-					$position++;
+				if(strlen($word) > 3){
+					if($this->textCleaner->isValidWord($word)){
+						foreach ($trendingWordsArray as $trendingWord) {
+							if(strcasecmp($trendingWord->word, $word) == 0){
+								$wordFind = true;
+								$trendingWord->weight = $trendingWord->weight + 1;
+							}
+						}
+						if(!$wordFind){
+							$newWord = new TrendingWords();
+							$newWord->id = md5($word);
+							$newWord->word = $word;
+							$newWord->weight = 0;
+							$trendingWordsArray[$position] = $newWord;
+							$position++;
+						}
+					}
 				}
 			}
 		}
-
+		$this->saveAllTrengingWords($trendingWordsArray);
 	}
 
 	public function getLatestsNews(){
 
 		$latestsNewsArray = array();
-		$latestsNewsArray = $this->news::where('pubdate', '>=', $this->getDengoDateLimit());
+		$dateLimit = DateManager::getDengoDateLimit();
+		//var_dump($dateLimit);
+		$latestsNewsArray = $this->news->where('pubdate', '>=', $dateLimit)->get();
+		//var_dump($latestsNewsArray);
 		return $latestsNewsArray;
 	}
 
-	public function getDengoDateLimit(){
+	public function saveAllTrengingWords($trendingWordsArray){
+		TrendingWords::where('id', '!=', '0')->delete();
+		foreach ($trendingWordsArray as $word) {
+				$word->save();
+		}
+	}
 
-		$date = new DateTime();
-		$date->setTimezone(new DateTimeZone('America/Argentina/Buenos_Aires'));
-		$date->sub(DateInterval::createFromDateString('12 hour'));
-		$dateLimit  = $date->format('Y-m-d H:i:s');
-		return ($dateLimit);
+
+	// Esta opcion seria para que las palabras vallan sumando puntaje y la tabla se reinicie cada X tiempo 
+	// public function saveAllTrengingWords($trendingWordsArray){
+	// 	foreach ($trendingWordsArray as $word) {
+	// 		$trendingWord = TrendingWords::find($word->id);
+	// 		if($trendingWord){
+	// 			$trendingWord->weight = $trendingWord->weight + $word->weight;
+	// 			$trendingWord->save(); 
+	// 		} else {
+	// 			$word->save();
+	// 		}
+	// 	}
+	// }
+
+	public function getNewsTitles($arrayNews){
+		$arrayTitles = array();
+		$index = 0;
+		foreach ($arrayNews as $news) {
+			$title = $news->title;
+			$arrayTitles[$index] = $title;
+			$index++;
+		}
+		return ($arrayTitles);
 	}
 }

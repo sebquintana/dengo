@@ -12,3 +12,4 @@
 */
 Artisan::add(new UpdateSourcesCommand());
 Artisan::add(new UpdateNewsCommand());
+Artisan::add(new CreateTrendingWordsCommand());

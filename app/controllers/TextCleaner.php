@@ -16,19 +16,17 @@ class TextCleaner {
 
 	public function isValidWord($word) {
 
-		
 		$unwantedWordsArray = $this->getUnwantedWordsArray();
 		foreach ($unwantedWordsArray as $unwantedWord) {
-			if(strcmp($word, $unwantedWord)){
+			if($word == $unwantedWord){
 				return false;
 			}
-			return true;
 		}
-		
+		return true;
 	}
 
 	public function getUnwantedWordsArray(){
-		$unwantedWordsFile = 'properties/unwantedWords.csv';
+		$unwantedWordsFile = 'app/properties/unwantedWords.csv';
 		$delimiter = ',';
 		$enclosure = '"';
 		$file = fopen($unwantedWordsFile,"r");
@@ -51,6 +49,7 @@ class TextCleaner {
 				$pattern = "/(^|\s)" . $pattern . "($|\s)/i";
 				$filteredTitle = preg_replace($pattern, " ", $filteredTitle);
 			}
+			$filteredTitle = $this->normalize($filteredTitle);
 			$filteredArray[$index] = $filteredTitle;
 			$index++;
 		}
