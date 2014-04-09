@@ -136,7 +136,7 @@
 		<genre></genre>
 		<country>Argentina</country>
 	</source>
-	<source>
+	<!-- <source>
 		<name>Télam</name>
 		<shortname>telam</shortname>
 		<type>portal</type>
@@ -144,5 +144,5 @@
 		<rssLocal>rss/telam.rss</rssLocal>
 		<genre></genre>
 		<country>Argentina</country>
-	</source>
+	</source>-->
 </rss>

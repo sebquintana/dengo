@@ -4,21 +4,21 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
-class CreateTrendingWordsCommand extends Command {
+class CreateTrendingNewsCommand extends Command {
 
 	/**
 	 * The console command name.
 	 *
 	 * @var string
 	 */
-	protected $name = 'trendingWords:create';
+	protected $name = 'trendingNews:create';
 
 	/**
 	 * The console command description.
 	 *
 	 * @var string
 	 */
-	protected $description = 'Create the trending words and save in database';
+	protected $description = 'Create the tranding news';
 
 	/**
 	 * Create a new command instance.
@@ -37,13 +37,14 @@ class CreateTrendingWordsCommand extends Command {
 	 */
 	public function fire()
 	{
-		$news = new News();
+		$newsModel = new News();
+		$trendingWordsModel = new TrendingWords();
 		$trendingNews = new TrendingNews();
-		$configManager = new ConfigurationManager();
-		$textCleaner = new TextCleaner($configManager);
-		$trendingWordsController = new TrendingWordsController($textCleaner, $trendingNews, $news);
+		$configurationManager = new ConfigurationManager();
+		$textCleaner = new TextCleaner($configurationManager);
+		$trendingNewsController = new TrendingNewsController($newsModel, $trendingWordsModel, $trendingNews);
 		$this->info("Creating the trending words.");
-		$trendingWordsController->createTrendingWords();
+		$trendingNewsController->createTrendingNews();
 		$this->info("TrendingWords created succesfully.");
 	}
 

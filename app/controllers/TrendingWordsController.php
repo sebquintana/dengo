@@ -2,12 +2,14 @@
 
 class TrendingWordsController extends \BaseController {
 
-	protected $news;
 	protected $textCleaner;
+	protected $trendingNews;
+	protected $news;
 
-	public function __construct(News $news, TextCleaner $textCleaner) {
-		$this->news = $news;
+	public function __construct(TextCleaner $textCleaner, TrendingNews $trendingNews, News $news) {
 		$this->textCleaner = $textCleaner;
+		$this->trendingNews = $trendingNews;
+		$this->news = $news;
 	}
 
 
@@ -87,7 +89,7 @@ class TrendingWordsController extends \BaseController {
 
 	public function createTrendingWords(){
 		$trendingWordsArray = array();
-		$latestsTitlesArray = $this->textCleaner->cleanArray($this->getNewsTitles($this->getLatestsNews()));
+		$latestsTitlesArray = $this->textCleaner->cleanArray($this->trendingNews->getNewsTitles($this->news->getLatestsNews()));
 		$position = 0;
 		$wordFind = false;
 		foreach ($latestsTitlesArray as $title) {
@@ -113,20 +115,10 @@ class TrendingWordsController extends \BaseController {
 				}
 			}
 		}
-		$this->saveAllTrengingWords($trendingWordsArray);
+		$this->saveAllTrendingWords($trendingWordsArray);
 	}
 
-	public function getLatestsNews(){
-
-		$latestsNewsArray = array();
-		$dateLimit = DateManager::getDengoDateLimit();
-		//var_dump($dateLimit);
-		$latestsNewsArray = $this->news->where('pubdate', '>=', $dateLimit)->get();
-		//var_dump($latestsNewsArray);
-		return $latestsNewsArray;
-	}
-
-	public function saveAllTrengingWords($trendingWordsArray){
+	public function saveAllTrendingWords($trendingWordsArray){
 		TrendingWords::where('id', '!=', '0')->delete();
 		foreach ($trendingWordsArray as $word) {
 				$word->save();
@@ -146,15 +138,4 @@ class TrendingWordsController extends \BaseController {
 	// 		}
 	// 	}
 	// }
-
-	public function getNewsTitles($arrayNews){
-		$arrayTitles = array();
-		$index = 0;
-		foreach ($arrayNews as $news) {
-			$title = $news->title;
-			$arrayTitles[$index] = $title;
-			$index++;
-		}
-		return ($arrayTitles);
-	}
 }

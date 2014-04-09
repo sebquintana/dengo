@@ -5,18 +5,27 @@ class HomeController extends BaseController {
 	protected $news;
 	protected $configurationManager;
 	protected $sorter;
+	protected $trendingNews;
 
-	public function __construct(News $news, ConfigurationManager $configurationManager, Sorter $sorter){
+	public function __construct(News $news, ConfigurationManager $configurationManager, Sorter $sorter, TrendingNews $trendingNews){
 
 		$this->news = $news;
 		$this->configurationManager = $configurationManager;
 		$this->sorter = $sorter;
+		$this->trendingNews = $trendingNews;
 	}
 
 	public function index() {
 		//$tenTrendingNews = $this->news->where('id', '<', '10')->get();
-		$tenTrendingNews = $this->news->where('image', '!=', '')->take(10)->get();
+		//$tenTrendingNews = $this->news->where('image', '!=', '')->take(10)->get();
 		//return View::make('index', ['tenTrendingNews' => $tenTrendingNews]);
+		$trendingNewsIdArray = $this->trendingNews->where('weight', '>', '1')->orderBy('weight', 'DESC')->take(30)->get();
+		$tenTrendingNews = array();
+		$index = 0;
+		foreach ($trendingNewsIdArray as $trendingNews) {
+			$tenTrendingNews[$index] = $this->news->find($trendingNews->id);
+			$index++;
+		}
 		return View::make('index', array('tenTrendingNews' => $tenTrendingNews));
 	}
 

@@ -2,6 +2,16 @@
 
 class TrendingNewsController extends \BaseController {
 
+	protected $news;
+	protected $trendingWords;
+	protected $trendingNews;
+
+	public function __construct(News $news, TrendingWords $trendingWords, TrendingNews $trendingNews) {
+		$this->news = $news;
+		$this->trendingWords = $trendingWords;
+		$this->trendingNews = $trendingNews;
+	}
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -76,4 +86,35 @@ class TrendingNewsController extends \BaseController {
 		//
 	}
 
-}
+	public function createTrendingNews(){
+		// obetener las TW
+		$trendingWordsArray = $this->trendingWords->where('weight', '>', '0')->get();
+		$latestsNewsArray = $this->news->getLatestsNews();
+		foreach ($latestsNewsArray as $news) {
+			$trendingNews = new TrendingNews();
+			$trendingNews->id = $news->id;
+			$trendingNews->weight = $this->calculateWeight($trendingWordsArray, $news->title, $news->resume, $news->pubdate);
+			$trendingNews->save();
+		}
+	}
+
+	public function calculateWeight($keywordArray,$title,$resume,$pubdate){
+		$titleArray = explode(" ", $title);
+		$resumeArray = explode(" ", $resume);
+		$tredingWordsInTitle = 0;
+		$tredingWordsInResume = 0;
+		foreach ($keywordArray as $keyword) {
+			foreach ($titleArray as $titleWord) {
+				if(strcasecmp($keyword->word, $titleWord) == 0){
+					$tredingWordsInTitle++;
+				}
+			}
+			foreach ($resumeArray as $resumeWord) {
+				if(strcasecmp($keyword->word, $titleWord) == 0){
+					$tredingWordsInResume++;
+				}
+			}
+		}
+		return $tredingWordsInTitle * 3 + $tredingWordsInResume * 1;
+	}
+} 

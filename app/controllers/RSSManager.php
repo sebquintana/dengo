@@ -37,7 +37,7 @@ class RSSManager {
 			$rssAsString = file_get_contents($rssFeed);
 		}
 		catch(Exception $e) {
-			//file_put_contents('../logs/parserErrors.txt', $e->getMessage(), FILE_APPEND);
+			//file_put_contents('app/logs/parserErrors.txt', $e->getMessage(), FILE_APPEND);
 		}
 		if ($rssAsString != false){
 			

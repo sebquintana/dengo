@@ -5,7 +5,7 @@ class Sorter {
 	private $configManager;
 	private $textCleaner;
 	
-	function __construct(configurationManager $configurationManager,TextCleaner $textCleaner){
+	function __construct(ConfigurationManager $configurationManager,TextCleaner $textCleaner){
 		$this->configManager = $configurationManager;
 		$this->textCleaner = $textCleaner;
 	}
@@ -90,6 +90,15 @@ class Sorter {
 			$foundInResume = false;
 			while(!$foundInTitle && $titleIndex < $wordsInTitleSize){
 				$foundInTitle = $this->searchString($kw,$wordsInTitle[$titleIndex]);
+				// $log1 = "=================== TRENDING WORD ==================";
+				// $log2 = "=================== TITLE WORD ==================";
+				// $log3 = "=================== RESULT ==================";
+				// var_dump($log1);
+				// var_dump($kw);
+				// var_dump($log2);
+				// var_dump($wordsInTitle[$titleIndex]);
+				// var_dump($log3);
+				// var_dump($foundInTitle);
 				$titleIndex++;
 			}
 			if ($foundInTitle){

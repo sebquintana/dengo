@@ -8,13 +8,9 @@ class News extends Eloquent {
 
 	protected $table = 'news';
 
-	private $weight;
-
-	public function setWeight($weight) {
-		$this->weight = $weight;
-	}
-
-	public function getWeight() {
-		return $this->weight;
+	public function getLatestsNews(){
+		$latestsNewsArray = array();
+		$latestsNewsArray = $this->where('pubdate', '>=', DateManager::getDengoDateLimit())->get();
+		return $latestsNewsArray;
 	}
 }
