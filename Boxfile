@@ -20,7 +20,9 @@ web1: #component type & number
 #    - "php artisan migrate:install"
 #    - "php artisan migrate"
 #    - "php artisan source:update"
-#    - "php artisan news:update"
+    - "php artisan news:update"
+    - "php artisan trendingWords:create"
+    - "php artisan trendingNews:create"
   after_deploy:
     - "rm -f storage/cache/*"
     - "rm -f storage/views/*" 
