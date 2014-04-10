@@ -29,7 +29,7 @@ class Sorter {
 		$pivot = $array[0];
 		$left = $right = array();
 		for ($i = 1; $i < count($array); $i++) {
-			if ($array[$i]->getWeight() > $pivot->getWeight()){
+			if ($array[$i]->weight > $pivot->weight){
 				$left[] = $array[$i];
 			}
 			else{

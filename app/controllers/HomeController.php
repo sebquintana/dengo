@@ -49,7 +49,13 @@ class HomeController extends BaseController {
 
 	public function show($search) {
 
-		$search = $this->search($search, 'peso');
+		$trendingNewsSearch = $this->search($search, 'peso');
+		$search = array();
+		$index = 0;
+		foreach ($trendingNewsSearch as $trendingNews) {
+			$search[$index] = $this->news->find($trendingNews->id);
+			$index++;
+		}
 		return View::make('search', array('search' => $search));
 	}
 
@@ -67,8 +73,10 @@ class HomeController extends BaseController {
 			$pubDate = $news->pubdate;
 			$weight = $this->sorter->calculateWeight($keywordArray,$title,$resume,$pubDate);
 			if ($weight > 0){
-				$news->setWeight($weight);
-				$newsArrayKey[$i] = $news;
+				$trendingNews = new TrendingNews();
+				$trendingNews->weight = $weight;
+				$trendingNews->id = $news->id;
+				$newsArrayKey[$i] = $trendingNews;
 				$i = $i + 1;
 			}
 		}
