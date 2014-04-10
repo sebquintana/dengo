@@ -43,9 +43,9 @@ class CreateTrendingNewsCommand extends Command {
 		$configurationManager = new ConfigurationManager();
 		$textCleaner = new TextCleaner($configurationManager);
 		$trendingNewsController = new TrendingNewsController($newsModel, $trendingWordsModel, $trendingNews);
-		$this->info("Creating the trending words.");
+		$this->info("Creating the trending news.");
 		$trendingNewsController->createTrendingNews();
-		$this->info("TrendingWords created succesfully.");
+		$this->info("TrendingNews created succesfully.");
 	}
 
 	/**

@@ -87,14 +87,25 @@ class TrendingNewsController extends \BaseController {
 	}
 
 	public function createTrendingNews(){
-		// obetener las TW
+		$trendingNewsArray = array();
+		$position = 0;
 		$trendingWordsArray = $this->trendingWords->where('weight', '>', '0')->get();
 		$latestsNewsArray = $this->news->getLatestsNews();
 		foreach ($latestsNewsArray as $news) {
 			$trendingNews = new TrendingNews();
 			$trendingNews->id = $news->id;
 			$trendingNews->weight = $this->calculateWeight($trendingWordsArray, $news->title, $news->resume, $news->pubdate);
-			$trendingNews->save();
+			$trendingNewsArray[$position] = $trendingNews;
+			$position++;
+		}
+		$this->saveAllTrendingNews($trendingNewsArray);
+	}
+
+
+	public function saveAllTrendingNews($trendingNewsArray){
+		$this->trendingNews->where('id', '!=', '0')->delete();
+		foreach ($trendingNewsArray as $news) {
+				$news->save();
 		}
 	}
 
