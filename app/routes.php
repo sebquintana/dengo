@@ -1,6 +1,11 @@
 <?php
 //Route::get('/', 'HomeController@index');
 
+//Route::get('/index', function(){
+//
+//	return View::make('index-old');
+//});
+
 Route::resource('/', 'HomeController');
 //Route::resource('/sources', 'SourceController@index');
 

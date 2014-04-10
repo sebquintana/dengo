@@ -1,33 +1,34 @@
-<div class="navbar  navbar-fixed-top">
-	<div class="navbar-inner headerContainer">
-		<div class="container-fluid">
-			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse" type="button"> 
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</a>
-			<a class="brand" href="/">
+ <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+         <a class="brand" href="/">
 				<img class="dengoLogo" style="border:none;" src="images/logo.png"/>
 			</a>
-
-			<div class="nav-collapse headerMenus">
-				{{ Form::open(array('route' => 'store', 'class' => 'form form-search navbar-search pull-right ')) }}
-					<div class="input-append"> 
-						{{ Form::text('search', null, array('class' => 'search-query')) }}
-						{{ Form::submit('Buscar', array('class' => 'btn btn-buscar')) }}
-					 </div> 
-				{{ Form::close() }}
-				
-				<ul class="nav pull-right">
-					<li ><a href="#about">Ultimas Noticias</a></li>
-					<li ><a href="#about">Denguealas</a></li>
-					<li ><a href="#about">Quienes Somos</a></li>
-					<li ><a href="#contact">Contacto</a></li>
-					<li ><a href="#contact">Secciones</a></li>
-				</ul>
-				
-			</div>
-		</div>
-	</div>
-</div>
+        </div>
+        <div class="collapse navbar-collapse">
+           {{ Form::open(array('route' => 'store', 'class' => 'navbar-form')) }}
+              <div class="col-lg-2 input-group navbar-right searchBoxAndButton"> 
+                {{ Form::text('search', null, array('class' => 'form-control')) }}
+                <div class="input-group-btn">
+                   {{ Form::submit('Buscar', array('class' => 'btn btn-default searchButton')) }}
+                </div>
+             </div> 
+           {{ Form::close() }}  
+            <ul class="nav navbar-nav navbar-right index-header-list" style="margin-right: 0">
+                <li class="active"><a href="#about">Ultimas Noticias</a></li>
+                <li ><a href="#about">Denguealas</a></li>
+                <li ><a href="#about">Quienes Somos</a></li>
+                <li ><a href="#contact">Contacto</a></li>
+                <li ><a href="#contact">Secciones</a></li>
+                <li ></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
 <br>

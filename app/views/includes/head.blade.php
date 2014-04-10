@@ -4,9 +4,5 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<!-- Estos css van aca por que tienen que cargar al comienzo de la pagina  sino tardan em aplicarce-->
- 
-{{ HTML::style('css/dengoDelDiaBootstrap.css'); }}
-{{ HTML::style('css/headerBootstrap.css'); }}
-{{ HTML::style('css/bootstrap.css'); }}
-	
+{{ HTML::style('css/bootstrap.min-new.css'); }}
+{{ HTML::style('css/starter-template.css'); }}

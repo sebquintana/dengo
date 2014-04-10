@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('content')
-	
-	@include('trendingNews.trendingNews')
+  
+  @include('trendingNews.trendingNews')
 
-@stop	
+@stop 
