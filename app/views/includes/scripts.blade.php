@@ -1,8 +1,12 @@
 <!-- Placed at the end of the document so the pages load faster -->
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>-->
+	{{ HTML::style('css/jquery-ui-1.10.4.min.css'); }}
+	{{ HTML::script('js/jquery-ui-1.10.4.custom/js/jquery-1.10.2.js') }}
+	{{ HTML::script('js/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.min.js') }}
 	{{ HTML::script('js/bootstrap.min.js') }}
-	
+	{{ HTML::script('js/acordeon.js') }}
+
     <!-- UserVoice JavaScript SDK (only needed once on a page) -->
 	<script>
 	(function(){var uv=document.createElement('script');

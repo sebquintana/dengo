@@ -57,3 +57,13 @@ body {
 	color: #33b5e5;
 	border: none;
 }
+.searchContainer {
+	background-color: #333333;
+	color: #33b5e5;
+}
+.searchListTitle{
+	font-size: 20px;
+}
+.searchListResume{
+	font-size: 16px;
+}
