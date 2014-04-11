@@ -139,6 +139,76 @@ class Sorter {
 		return($weight);
 	}
 
+	function calculateTrendingNewsWeight($keywordArray,$title,$resume,$pubDate){
+		$titleWeight=0;
+		$resumeWeight=0;
+		$multiplyFactorTitle = 2;
+		$base = 1;
+		$multiplyFactorResume = 1;
+		$wordsInTitle = explode(" ",$title);
+		$wordsInResume = explode(" ",$resume);
+		$keywordArraySize=count($keywordArray);
+		$wordsInTitleSize = count($wordsInTitle);
+		$wordsInResumeSize  = count($wordsInResume);
+		$maxTitleWeight = $keywordArraySize * $multiplyFactorTitle;
+		$maxResumeWeight = $keywordArraySize * $multiplyFactorResume;
+		foreach($keywordArray as $kw){
+			$titleIndex = 0;
+			$resumeIndex = 0;
+			$foundInTitle = false;
+			$foundInResume = false;
+			while(!$foundInTitle && $titleIndex < $wordsInTitleSize){
+				 $foundInTitle = $this->searchString($kw->word,$wordsInTitle[$titleIndex]);
+				// $log1 = "=================== TRENDING WORD ==================";
+				// $log2 = "=================== TITLE WORD ==================";
+				// $log3 = "=================== RESULT ==================";
+				// var_dump($log1);
+				// var_dump($kw->word);
+				// var_dump($log2);
+				// var_dump($wordsInTitle[$titleIndex]);
+				// var_dump($log3);
+				// var_dump($foundInTitle);
+				$titleIndex++;
+			}
+			if ($foundInTitle){
+				$titleWeight = $titleWeight + ($base * $multiplyFactorTitle);
+			}
+			while(!$foundInResume && $resumeIndex < $wordsInResumeSize){
+				$foundInResume = $this->searchString($kw,$wordsInResume[$resumeIndex]);
+				$resumeIndex++;
+			}
+			if ($foundInResume){
+				$resumeWeight = $resumeWeight + ($base * $multiplyFactorResume);
+			}
+		}
+		
+		$titleKeyWordMatchPercentage = ($titleWeight * 100) / $maxTitleWeight;
+		$resumeKeyWordMatchPercentage = ($resumeWeight * 100) / $maxResumeWeight;
+		
+		if ($titleKeyWordMatchPercentage == 100){
+			$bonusTitleMatch = 3;
+		}
+		else{
+			$bonusTitleMatch = 0;
+		}
+		
+		if ($resumeKeyWordMatchPercentage == 100){
+			$bonusResumeMatch = 2;
+		}
+		else{
+			$bonusResumeMatch = 0;
+		}
+		
+		$titleWeight = $titleWeight + $bonusTitleMatch;
+		$resumeWeight = $resumeWeight + $bonusResumeMatch;
+		$weight = $titleWeight + $resumeWeight;
+		if ($weight > 0){
+			$weight = $weight + $this->calculateTimeBonus($pubDate);
+		}
+		return($weight);
+	}
+
+
 	function searchString($kw,$texto){
 		$found = FALSE;
 		$key = str_replace($this->configManager->getArrayCharacters(), "", $kw);

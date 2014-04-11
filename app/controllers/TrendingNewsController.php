@@ -5,11 +5,13 @@ class TrendingNewsController extends \BaseController {
 	protected $news;
 	protected $trendingWords;
 	protected $trendingNews;
+	protected $sorter;
 
-	public function __construct(News $news, TrendingWords $trendingWords, TrendingNews $trendingNews) {
+	public function __construct(News $news, TrendingWords $trendingWords, TrendingNews $trendingNews, Sorter $sorter) {
 		$this->news = $news;
 		$this->trendingWords = $trendingWords;
 		$this->trendingNews = $trendingNews;
+		$this->sorter = $sorter;
 	}
 
 	/**
@@ -94,7 +96,9 @@ class TrendingNewsController extends \BaseController {
 		foreach ($latestsNewsArray as $news) {
 			$trendingNews = new TrendingNews();
 			$trendingNews->id = $news->id;
-			$trendingNews->weight = $this->calculateWeight($trendingWordsArray, $news->title, $news->resume, $news->pubdate);
+		//	$trendingNews->weight = $this->calculateWeight($trendingWordsArray, $news->title, $news->resume, $news->pubdate);
+			$trendingNews->weight = $this->sorter->calculateTrendingNewsWeight($trendingWordsArray, $news->title, $news->resume, $news->pubdate);
+		//	var_dump($trendingNewsArray);
 			$trendingNewsArray[$position] = $trendingNews;
 			$position++;
 		}
