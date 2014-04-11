@@ -8,15 +8,14 @@
 
         <div class="media">
 
-          <!--<a class="pull-left" href="#">
-            <img class='"media-object img-circle newsImage' src="{{ $result->image }}" />
-          </a> -->
-
           <div class="media-body">
+
             <h4 class="media-heading searchListTitle">{{ $result->title }}</h4>
-            <p class="searchNewsResume"><a class="pull-left" href="#">
-            <img class='"media-object img-circle newsImage' src="{{ $result->image }}" />
-          </a class="searchListResume"> {{ $result->resume }}</p>
+            <p class="searchListResume">
+            <a class="pull-left" href="#">
+             <img class='"media-object img-circle newsImage' src="{{ $result->image }}" />
+            </a class="searchListResume"> {{ $result->resume }}</p>
+
           </div>
 
         </div> 
