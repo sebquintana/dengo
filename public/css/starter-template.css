@@ -15,6 +15,16 @@ body {
   padding: 40px 15px;
   text-align: center;
 }
+.headerBar{
+	padding-bottom: 13px;	
+}
+.dengoLogo {
+ 	margin-left: 60px; 
+ 	margin-top: 11px;
+}
+.headerBarItems{
+	padding-top: 14px;
+}
 .index-header-list {
 	margin-right: 0;
 	font-size: 18px;
@@ -28,6 +38,11 @@ body {
 	border: none;
 	height: 34px;
 }
+.headerMobileButton{
+	margin-top: 27px;
+	border: solid;
+	border-color: #3D3D3D;
+}
 .newsImage {
 	alt:140x140;
 	height: 100px;
@@ -39,8 +54,8 @@ body {
 .dengoDelDiaList{
 	font-size: 18px;
 }
-.dengoDelDiaNews{
-	border-bottom: 1px solid;
+.nav>li> .dengoDelDiaNews{
+	border: 1px solid rgb(72, 72, 72);
 }
 .trendingNewsContainer{
 	background:#333333;

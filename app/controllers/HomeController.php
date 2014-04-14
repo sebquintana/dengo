@@ -64,14 +64,10 @@ class HomeController extends BaseController {
 		$i = 0;
 		$keywordArray = explode(" ",$keyword);
 		$keywordsStringForDBSearch = $this->prepareKeyWordsForDBSearch($keywordArray);
-		$dateLimit  = DateManager::getSearchLimit();
-		//$newsArrray = $this->news->searchNewsByKeyWord($keywordsStringForDBSearch);
+	//	$dateLimit  = DateManager::getSearchLimit();
 		$newsArrray = $this->news->whereRaw(("MATCH(title,resume) AGAINST(? IN BOOLEAN MODE)"),array($keywordsStringForDBSearch))->get();
 		foreach($newsArrray as $news){
-			$title = $news->title;
-			$resume = $news->resume;
-			$pubDate = $news->pubdate;
-			$weight = $this->sorter->calculateWeight($keywordArray,$title,$resume,$pubDate);
+			$weight = $this->sorter->calculateWeight($keywordArray,$news->title,$news->resume,$news->pubdate);
 			if ($weight > 0){
 				$trendingNews = new TrendingNews();
 				$trendingNews->weight = $weight;

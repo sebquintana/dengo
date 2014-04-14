@@ -1,7 +1,7 @@
- <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+ <div class="navbar navbar-inverse navbar-fixed-top headerBar" role="navigation">
       <div class="container-fluid">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <button type="button" class="navbar-toggle headerMobileButton" data-toggle="collapse" data-target=".navbar-collapse">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -11,7 +11,7 @@
 				<img class="dengoLogo" style="border:none;" src="images/logo.png"/>
 			</a>
         </div>
-        <div class="collapse navbar-collapse">
+        <div class="collapse navbar-collapse headerBarItems">
            {{ Form::open(array('route' => 'store', 'class' => 'navbar-form')) }}
               <div class="col-lg-2 input-group navbar-right searchBoxAndButton"> 
                 {{ Form::text('search', null, array('class' => 'form-control')) }}

@@ -11,5 +11,6 @@ Route::resource('/', 'HomeController');
 
 //Route::resource('/sources/{Name}', 'SourceController@show');
 
-Route::resource('/search/{keyword}', 'HomeController@show' );
+//Route::resource('/search/{keyword}', 'HomeController@show' );
+Route::resource('/{keyword}', 'HomeController@show' );
 
