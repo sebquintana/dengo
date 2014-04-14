@@ -90,19 +90,32 @@ class TrendingNewsController extends \BaseController {
 
 	public function createTrendingNews(){
 		$trendingNewsArray = array();
+		$trendingNewsArrayWitoutNewsRelated = array();
 		$position = 0;
 		$trendingWordsArray = $this->trendingWords->where('weight', '>', '0')->get();
 		$latestsNewsArray = $this->news->getLatestsNews();
 		foreach ($latestsNewsArray as $news) {
 			$trendingNews = new TrendingNews();
 			$trendingNews->id = $news->id;
-		//	$trendingNews->weight = $this->calculateWeight($trendingWordsArray, $news->title, $news->resume, $news->pubdate);
-			$trendingNews->weight = $this->sorter->calculateTrendingNewsWeight($trendingWordsArray, $news->title, $news->resume, $news->pubdate);
-		//	var_dump($trendingNewsArray);
+			$trendingNews->weight = $this->sorter->calculateTrendingNewsWeight($trendingWordsArray, $news->title, $news->resume, $news->pubdate, $news->image);
 			$trendingNewsArray[$position] = $trendingNews;
 			$position++;
 		}
-		$this->saveAllTrendingNews($trendingNewsArray);
+		$newsRealated = false;
+		$index = 0;
+		foreach ($trendingNewsArray as $news) {
+			foreach ($trendingNewsArrayWitoutNewsRelated as $otherNews) {
+				if($this->sorter->newsAreRelated($news->title, $otherNews->title)){
+					$newsRealated = true;
+				}	
+			}
+			if(!$newsRealated){
+				$trendingNewsArrayWitoutNewsRelated[$index] = $news;
+				$index++;
+				$newsRealated = false;
+			}
+		}
+		$this->saveAllTrendingNews($trendingNewsArrayWitoutNewsRelated);
 	}
 
 

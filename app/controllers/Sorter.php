@@ -90,15 +90,6 @@ class Sorter {
 			$foundInResume = false;
 			while(!$foundInTitle && $titleIndex < $wordsInTitleSize){
 				$foundInTitle = $this->searchString($kw,$wordsInTitle[$titleIndex]);
-				// $log1 = "=================== TRENDING WORD ==================";
-				// $log2 = "=================== TITLE WORD ==================";
-				// $log3 = "=================== RESULT ==================";
-				// var_dump($log1);
-				// var_dump($kw);
-				// var_dump($log2);
-				// var_dump($wordsInTitle[$titleIndex]);
-				// var_dump($log3);
-				// var_dump($foundInTitle);
 				$titleIndex++;
 			}
 			if ($foundInTitle){
@@ -139,7 +130,7 @@ class Sorter {
 		return($weight);
 	}
 
-	function calculateTrendingNewsWeight($keywordArray,$title,$resume,$pubDate){
+	function calculateTrendingNewsWeight($keywordArray,$title,$resume,$pubDate,$image){
 		$titleWeight=0;
 		$resumeWeight=0;
 		$multiplyFactorTitle = 2;
@@ -159,15 +150,7 @@ class Sorter {
 			$foundInResume = false;
 			while(!$foundInTitle && $titleIndex < $wordsInTitleSize){
 				 $foundInTitle = $this->searchString($kw->word,$wordsInTitle[$titleIndex]);
-				// $log1 = "=================== TRENDING WORD ==================";
-				// $log2 = "=================== TITLE WORD ==================";
-				// $log3 = "=================== RESULT ==================";
-				// var_dump($log1);
-				// var_dump($kw->word);
-				// var_dump($log2);
-				// var_dump($wordsInTitle[$titleIndex]);
-				// var_dump($log3);
-				// var_dump($foundInTitle);
+
 				$titleIndex++;
 			}
 			if ($foundInTitle){
@@ -204,6 +187,9 @@ class Sorter {
 		$weight = $titleWeight + $resumeWeight;
 		if ($weight > 0){
 			$weight = $weight + $this->calculateTimeBonus($pubDate);
+		}
+		if(!is_null($image)){
+			$weight = $weight * 2;
 		}
 		return($weight);
 	}
@@ -245,5 +231,56 @@ class Sorter {
 			}
 		}
 		return ($timeBonus);
+	}
+
+	public function newsAreRelated($title,$otherTitle){
+		$relationshipLimit = 3;
+		$newsKWs =  $this->checkAndCombineWordArray(explode(" ",$title));
+		$otherNewsKW =  $this->checkAndCombineWordArray(explode(" ",$otherTitle));
+		$wordsInCommon = array_uintersect($newsKWs, $otherNewsKW, 'strcasecmp');
+		return count($wordsInCommon) > $relationshipLimit;
+		}
+		
+	
+	
+	public function checkAndCombineWordArray($titleWordsArray){
+		$combinedTitleWordsArray = array();
+		$limit = count ($titleWordsArray);
+		$index=0;
+		while ($index < $limit){
+			$currentWord = $this->textCleaner->removeUnwantedCharsFromStringForRegex($titleWordsArray[$index]);
+			$result = preg_match_all('"([A-Z][a-zA-Z]*)+[^:]$"', $currentWord, $arr, PREG_PATTERN_ORDER);
+			if ($result > 0){
+				$index++;
+				$combinedWord=$currentWord;
+				while ($result > 0 && ($index +1) <= $limit){
+					$nextWord = $this->textCleaner->removeUnwantedCharsFromStringForRegex($titleWordsArray[$index]);
+					$result = preg_match_all('"([A-Z][a-zA-Z]*)+[^:]$"', $nextWord, $arr, PREG_PATTERN_ORDER);
+					if ($result > 0){
+							$combinedWord = $combinedWord . " " . $this->textCleaner->removeUnwantedTermsFromString($nextWord);
+							$index++;
+					} else {
+							//Si entre aca es porque o no empieza con mayusculas o termina con ":"
+							$result = preg_match_all('"([A-Z][a-zA-Z]*)+"', $nextWord, $arr, PREG_PATTERN_ORDER);
+							if($result > 0){
+								$combinedWord = $combinedWord . " " . $this->textCleaner->removeUnwantedTermsFromString($nextWord);
+								//Fuerzo result a 0 porque se que aca comienza una cita textual (despues de los :)
+								$result=0;
+							} else {
+								//Vuelvo el indice uno para atras, porque es una palabra que no tiene que ver con la "Frase"
+										$index--;
+									}
+							}
+				}
+			} else {
+					//Si entre aca es porque o no empieza con mayusculas
+					$combinedWord = $this->textCleaner->removeUnwantedTermsFromString($currentWord);
+					}
+			$index++;
+			if (strlen($combinedWord) > 3){
+				$combinedTitleWordsArray[] = $combinedWord;
+			}
+		}	
+		return ($combinedTitleWordsArray);
 	}
 }

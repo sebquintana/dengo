@@ -2,7 +2,7 @@ body {
   padding-top: 50px;
   font-family: 'Droid Sans', sans-serif;
   min-height: 100%;
-	background-color: #121417;
+ 	background-color: #121417;
 	background-image: -moz-linear-gradient(top, #060606, #252a30);
 	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#060606), to(#252a30));
 	background-image: -webkit-linear-gradient(top, #060606, #252a30);
@@ -44,7 +44,7 @@ body {
 	border-color: #3D3D3D;
 }
 .newsImage {
-	alt:140x140;
+	alt: 140x140;
 	height: 100px;
 }
 .dengoDelDiaTitle{
@@ -59,7 +59,6 @@ body {
 }
 .trendingNewsContainer{
 	background:#333333;
-	/*padding-right:10px;*/
 	position:relative;
 	text-align:left;	
 	margin-top:-14px;
@@ -75,9 +74,11 @@ body {
 .searchContainer {
 	background-color: #333333;
 	color: #33b5e5;
+	font-size: 18px;
 }
 .searchListTitle{
 	font-size: 20px;
+	display: -webkit-box;
 }
 .searchListResume{
 	font-size: 16px;
