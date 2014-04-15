@@ -234,7 +234,7 @@ class Sorter {
 	}
 
 	public function newsAreRelated($title,$otherTitle){
-		$relationshipLimit = 2;
+		$relationshipLimit = 3;
 		$newsKWs =  $this->checkAndCombineWordArray(explode(" ",$title));
 		$otherNewsKW =  $this->checkAndCombineWordArray(explode(" ",$otherTitle));
 		$wordsInCommon = array_uintersect($newsKWs, $otherNewsKW, 'strcasecmp');
