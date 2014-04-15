@@ -26,7 +26,7 @@
 		<rssLocal>rss/cronica.rss</rssLocal>
 		<genre></genre>
 		<country>Argentina</country>
-	</source>
+	</source> 
 	<source>
 		<name>El Espectador Mundo</name>
 		<shortname>elespectador</shortname>

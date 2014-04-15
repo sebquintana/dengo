@@ -6,10 +6,12 @@ class TextCleaner {
 	private $unwantedCharsForRegex = array(".","“","”",",",")","(","\"","!","\'",";","?","¡","=","/","&","#","°","*","¬","|","@","·","~","½","{","[","]","}","\\",);
 	
 	public function __construct(ConfigurationManager $configManager){
+
 		$this->configManager = $configManager;
 	}
 	
 	public function cleanArray($array) {
+
 		$filteredArray = $this->removeUnwantedTermsFromArray($array);
 		return $filteredArray;
 	}
@@ -26,20 +28,22 @@ class TextCleaner {
 	}
 
 	public function getUnwantedWordsArray(){
+
 		$unwantedWordsFile = 'app/properties/unwantedWords.csv';
 		$delimiter = ',';
 		$enclosure = '"';
 		$file = fopen($unwantedWordsFile,"r");
 		$unwantedWordsArray = fgetcsv($file,0,$delimiter,$enclosure);
-		return ($unwantedWordsArray);
+		return $unwantedWordsArray;
 	}
 
 	public function getUnwantedSymbolsArray(){
-		$unwantedSymbolsArray = $this->configManager->getArrayCharacters();
-		return $unwantedSymbolsArray;
+
+		return $this->configManager->getArrayCharacters();
 	}
 
 	public function removeUnwantedTermsFromArray($array){
+
 		$unwantedWordsArray = $this->getUnwantedWordsArray();
 		$filteredArray = array();
 		$index = 0;
@@ -57,6 +61,7 @@ class TextCleaner {
 	}
 	
 	public function removeUnwantedWords($text) {
+
 		$unwantedWordsArray = $this->getUnwantedWordsArray();
 		$filteredText = str_replace($this->getUnwantedSymbolsArray(), " ", $text);
 		foreach($unwantedWordsArray as $pattern){
@@ -64,27 +69,26 @@ class TextCleaner {
 			$filteredText = preg_replace($pattern, " ", $filteredText);
 		}
 		$filteredText = $this->removeWhiteSpacesExcess($filteredText);
-		$filteredText = ltrim($filteredText);
-		return $filteredText;
+		return ltrim($filteredText);
 	}
 	
 	public function removeWhiteSpacesExcess($filteredText){
-		$filteredText = preg_replace('/\s\s+/', ' ', $filteredText);
-		return $filteredText;
-	
+
+		return preg_replace('/\s\s+/', ' ', $filteredText);
 	}
 	
 	public function removeUnwantedCharsFromStringForRegex($string){
-		$filteredString = str_replace($this->unwantedCharsForRegex, "", $string);
-		return($filteredString);
+
+		return str_replace($this->unwantedCharsForRegex, "", $string);
 	}
 	
 	public function removeUnwantedTermsFromString($string){
-		$filteredString = str_replace($this->getUnwantedSymbolsArray(), "", $string);
-		return($filteredString);
+
+		return str_replace($this->getUnwantedSymbolsArray(), "", $string);
 	}
 	
 	public function normalize ($string){
+		
 		$originales = 'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðòóôõöøùúûýýþÿRr';
 		$modificadas = 'aaaaaaaceeeeiiiidoooooouuuuybsaaaaaaaceeeeiiiidoooooouuuyybyRr';
 		$string = utf8_decode($string);

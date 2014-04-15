@@ -5,12 +5,14 @@ class Sorter {
 	private $configManager;
 	private $textCleaner;
 	
-	function __construct(ConfigurationManager $configurationManager,TextCleaner $textCleaner){
+	public function __construct(ConfigurationManager $configurationManager,TextCleaner $textCleaner){
+
 		$this->configManager = $configurationManager;
 		$this->textCleaner = $textCleaner;
 	}
 	
-	function NewsSort($array,$method){
+	public function NewsSort($array,$method){
+
 		switch ($method) {
 			case "diario":
 				$sortedArray = $this->sortBySourceName($array);
@@ -22,7 +24,8 @@ class Sorter {
 		return ($sortedArray);
 	}
 
-	function sortByWeight($array){
+	public function sortByWeight($array){
+
 		if (count($array)< 2) {
 			return $array;
 		}
@@ -39,7 +42,8 @@ class Sorter {
 		return array_merge($this->sortByWeight($left), array($pivot), $this->sortByWeight($right));
 	}
 
-	function sortBySourceName($array){
+	public function sortBySourceName($array){
+
 		if (count($array)< 2) {
 			return $array;
 		}
@@ -70,7 +74,8 @@ class Sorter {
 		return $ret_value;
 	}
 	
-	function calculateWeight($keywordArray,$title,$resume,$pubDate){
+	public function calculateWeight($keywordArray,$title,$resume,$pubDate){
+
 		$titleWeight=0;
 		$resumeWeight=0;
 		$multiplyFactorTitle = 2;
@@ -130,7 +135,8 @@ class Sorter {
 		return($weight);
 	}
 
-	function calculateTrendingNewsWeight($keywordArray,$title,$resume,$pubDate,$image){
+	public function calculateTrendingNewsWeight($keywordArray,$title,$resume,$pubDate,$image){
+
 		$titleWeight=0;
 		$resumeWeight=0;
 		$multiplyFactorTitle = 2;
@@ -195,7 +201,8 @@ class Sorter {
 	}
 
 
-	function searchString($kw,$texto){
+	public function searchString($kw,$texto){
+
 		$found = FALSE;
 		$key = str_replace($this->configManager->getArrayCharacters(), "", $kw);
 		$key = $this->textCleaner->normalize($key);
@@ -213,7 +220,8 @@ class Sorter {
 		return ($found);
 	}
 	
-	function calculateTimeBonus($pubDate){
+	public function calculateTimeBonus($pubDate){
+
 		$phpPubDate = DateManager::convertToPhp($pubDate);
 		$currentDate = date('d-m-Y H:i');
 		$timeDelta = strtotime($currentDate) - strtotime($phpPubDate);
@@ -234,16 +242,18 @@ class Sorter {
 	}
 
 	public function newsAreRelated($title,$otherTitle){
+
 		$relationshipLimit = 3;
 		$newsKWs =  $this->checkAndCombineWordArray(explode(" ",$title));
 		$otherNewsKW =  $this->checkAndCombineWordArray(explode(" ",$otherTitle));
 		$wordsInCommon = array_uintersect($newsKWs, $otherNewsKW, 'strcasecmp');
 		return count($wordsInCommon) > $relationshipLimit;
-		}
+	}
 		
 	
 	
 	public function checkAndCombineWordArray($titleWordsArray){
+		
 		$combinedTitleWordsArray = array();
 		$limit = count ($titleWordsArray);
 		$index=0;

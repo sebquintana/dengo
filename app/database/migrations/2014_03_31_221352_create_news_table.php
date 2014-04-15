@@ -20,7 +20,7 @@ class CreateNewsTable extends Migration {
 		    $table->text('link');
 		    $table->text('image')->nullable();
 		    $table->dateTime('pubdate');
-		    $table->integer('source');
+		    $table->string('source','255');
 
 		});
 	}

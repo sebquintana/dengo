@@ -16,9 +16,7 @@ class HomeController extends BaseController {
 	}
 
 	public function index() {
-		//$tenTrendingNews = $this->news->where('id', '<', '10')->get();
-		//$tenTrendingNews = $this->news->where('image', '!=', '')->take(10)->get();
-		//return View::make('index', ['tenTrendingNews' => $tenTrendingNews]);
+
 		$trendingNewsIdArray = $this->trendingNews->where('weight', '>', '1')->orderBy('weight', 'DESC')->take(30)->get();
 		$tenTrendingNews = array();
 		$index = 0;
@@ -36,15 +34,10 @@ class HomeController extends BaseController {
 		$validation = Validator::make($search, array('search' => 'required|min:3'));
 
 		if($validation->fails()){
-			// en caso de que el texto de busqueda sea < 3, vuelve al index.
 			return Redirect::route('index');
-
 		} else {
-
 			return $this->show(Input::get('search'));
 		}
-
-		
 	}
 
 	public function show($search) {
@@ -59,12 +52,14 @@ class HomeController extends BaseController {
 		return View::make('search', array('search' => $search));
 	}
 
-	function search($keyword, $metodo){
+	public function search($keyword, $metodo){
+
 		$newsArrayKey =  array();
 		$i = 0;
 		$keywordArray = explode(" ",$keyword);
 		$keywordsStringForDBSearch = $this->prepareKeyWordsForDBSearch($keywordArray);
-	//	$dateLimit  = DateManager::getSearchLimit();
+		// agregar el limite de tiempo a la busqueda
+		//$dateLimit  = DateManager::getSearchLimit();
 		$newsArrray = $this->news->whereRaw(("MATCH(title,resume) AGAINST(? IN BOOLEAN MODE)"),array($keywordsStringForDBSearch))->get();
 		foreach($newsArrray as $news){
 			$weight = $this->sorter->calculateWeight($keywordArray,$news->title,$news->resume,$news->pubdate);
@@ -81,6 +76,7 @@ class HomeController extends BaseController {
 	}
 
 	private function prepareKeyWordsForDBSearch($keywordArray){
+
 		$keywordsStringForDBSearch = '';
 		foreach ($keywordArray as $kw){
 			$key = str_replace($this->configurationManager->getArrayCharacters(), "", $kw);

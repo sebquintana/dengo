@@ -7,87 +7,14 @@ class TrendingWordsController extends \BaseController {
 	protected $news;
 
 	public function __construct(TextCleaner $textCleaner, TrendingNews $trendingNews, News $news) {
+
 		$this->textCleaner = $textCleaner;
 		$this->trendingNews = $trendingNews;
 		$this->news = $news;
 	}
 
-
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		//
-	}
-
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
-	}
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		//
-	}
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
-	}
-
 	public function createTrendingWords(){
+
 		$trendingWordsArray = array();
 		$latestsTitlesArray = $this->textCleaner->cleanArray($this->trendingNews->getNewsTitles($this->news->getLatestsNews()));
 		$position = 0;
@@ -119,6 +46,7 @@ class TrendingWordsController extends \BaseController {
 	}
 
 	public function saveAllTrendingWords($trendingWordsArray){
+		
 		TrendingWords::where('id', '!=', '0')->delete();
 		foreach ($trendingWordsArray as $word) {
 				$word->save();

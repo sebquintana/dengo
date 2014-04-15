@@ -1,9 +1,8 @@
 <?php
-//require 'vendor/autoload.php';
 
 class RSSParser {
 
-	function parse($rssFeed, $source, $shortname){
+	public function parse($rssFeed, $source, $shortname){
 
 		$newsArray =  array();
 		$i = 0;
@@ -14,11 +13,10 @@ class RSSParser {
 		return ($newsArray);
 	}
 
-	function createNews($item, $shortname, $source){
+	public function createNews($item, $shortname, $source){
 
 		$news = new News();
 		$news->title = strip_tags($item->title);
-		//$news->pubdate = DateManager::convertToPhp($item->pubDate);
 		$news->pubdate = DateManager::convertToSql(DateManager::convertToPhp($item->pubDate));
 		$news->source = $source;
 		$news->resume = $this->shorten(strip_tags($item->description));
@@ -28,20 +26,19 @@ class RSSParser {
 		} else {
 			$news->link = $item->link;
 		}
-		//saving image if possible
 		if ($item->enclosure->count() > 0){
 			$isImage = strpos((string)$item->enclosure->attributes()->type, 'image');
 			if ($isImage === false){
 			}
 			else{
-				//echo "Image Link: " . $item->enclosure->attributes()->url . "\n";
 				$news->image = (string)$item->enclosure->attributes()->url;
 			}
 		}
 		return $news;
 	}
 
-	function shorten($resume){
+	public function shorten($resume){
+
 		$resume = (string)$resume;
 		$wc = strlen($resume);
 		$charLimit = 300;
@@ -67,4 +64,3 @@ class RSSParser {
 		return($shortenResume);
 	}
 }
-?>

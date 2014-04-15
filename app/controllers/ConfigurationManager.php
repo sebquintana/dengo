@@ -2,59 +2,62 @@
 
 class ConfigurationManager {
 
-	function getArrayCharacters() {
+	public function getArrayCharacters() {
+
 		$arrayUnwantedCharacters = array(
-".",
-",",
-")",
-"(",
-"\"",
-"!",
-"\'",
-":",
-";",
-"?",
-"¡",
-"=",
-"/",
-"&",
-"#",
-"°",
-"*",
-"¬",
-"|",
-"@",
-"·",
-"~",
-"½",
-"\"",		
-"{",
-"[",
-"]",
-"}",
-"\\",
+		".",
+		",",
+		")",
+		"(",
+		"\"",
+		"!",
+		"\'",
+		":",
+		";",
+		"?",
+		"¡",
+		"=",
+		"/",
+		"&",
+		"#",
+		"°",
+		"*",
+		"¬",
+		"|",
+		"@",
+		"·",
+		"~",
+		"½",
+		"\"",
+		"{",
+		"[",
+		"]",
+		"}",
+		"\\",
 		);
 		return $arrayUnwantedCharacters;
 	}
 	
-	function getArrayAcronim(){
+	public function getArrayAcronim(){
 	
 		$arrayAcronims = array(
 		"EE.UU.",
 		"L.A.",
 		);
-	return $arrayAcronims;
+		return $arrayAcronims;
 	}
 	
-	function getArrayReplaceAcronim(){
+	public function getArrayReplaceAcronim(){
+
 		$arrayReplaceAcronim = array(
 		"EEUU",
 		"LA",
 		);
-	return $arrayReplaceAcronim;
+		return $arrayReplaceAcronim;
 	}
 	
-	function getArticles(){
+	public function getArticles(){
+		
 		$articles = array(
 		'el',
 		'la',

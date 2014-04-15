@@ -12,26 +12,22 @@ class DateManager {
 	}
 	
 	public static function convertToSql ($rssPubDate){
-		//$date = date('Y-m-d H:i:s', strtotime($rssPubDate));
+
 		$date = new DateTime($rssPubDate);
 		$date->format('Y-m-d H:i:s');
 		$now = new DateTime();
 		$now->setTimezone(new DateTimeZone('America/Argentina/Buenos_Aires'));
 		$now->format('Y-m-d H:i:s');
-		$diff = ($date >= $now);
-		if ( $diff){
-			//$hour = $now->format('H');
-			//$min = $now->format('i');
-			//$date->setTime($hour, $min);
+		if ($date >= $now){
 			$date = $now;
 		}
 		return $date->format('Y-m-d H:i:s');;
 	}
 	
 	public static function convertToPhp ($rssPubDate){
+
 		date_default_timezone_set('America/Argentina/Buenos_Aires');
-		$date = strftime("%d-%m-%Y %H:%M", strtotime($rssPubDate));
-		return $date;
+		return strftime("%d-%m-%Y %H:%M", strtotime($rssPubDate));
 	}
 
 	public static function getYesterdayDateLimit(){
@@ -40,22 +36,22 @@ class DateManager {
 		$date = new DateTime();
 		$date->setTimezone(new DateTimeZone('America/Argentina/Buenos_Aires'));
 		$date->add(DateInterval::createFromDateString('yesterday'));
-		$dateLimit  = $date->format('Y-m-d H:i:s');
-		return ($dateLimit);
+		return  $date->format('Y-m-d H:i:s');
 	}
+
 	public static function getDengoDateLimit(){
+
 		$date = new DateTime();
 		$date->setTimezone(new DateTimeZone('America/Argentina/Buenos_Aires'));
 		$date->sub(DateInterval::createFromDateString('6 hour'));
-		$dateLimit  = $date->format('Y-m-d H:i:s');
-		return ($dateLimit);
+		return $date->format('Y-m-d H:i:s');
 	}
 	
 	public static function getSearchLimit(){
+		
 		$date = new DateTime();
 		$date->setTimezone(new DateTimeZone('America/Argentina/Buenos_Aires'));
 		$date->sub(DateInterval::createFromDateString('3 day'));
-		$dateLimit  = $date->format('Y-m-d H:i:s');
-		return ($dateLimit);
+		return $date->format('Y-m-d H:i:s');
 	}
 }

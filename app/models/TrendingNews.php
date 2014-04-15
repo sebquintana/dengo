@@ -3,13 +3,12 @@
 class TrendingNews extends Eloquent{
 	
 	protected $table = 'trendingNews';
-
-	public $timestamps = false;
-
 	protected $fillable = array('id', 'weight');
+	public $timestamps = false;
 
 
 	public function getNewsTitles($arrayNews){
+
 		$arrayTitles = array();
 		$index = 0;
 		foreach ($arrayNews as $news) {
@@ -17,10 +16,11 @@ class TrendingNews extends Eloquent{
 			$arrayTitles[$index] = $title;
 			$index++;
 		}
-		return ($arrayTitles);
+		return $arrayTitles;
 	}
 
 	public function getNewsResumes($arrayNews){
+
 		$arrayResumes = array();
 		$index = 0;
 		foreach ($arrayNews as $news) {
@@ -28,6 +28,6 @@ class TrendingNews extends Eloquent{
 			$arrayTitles[$index] = $resume;
 			$index++;
 		}
-		return ($arrayResumes);
+		return $arrayResumes;
 	}
 }

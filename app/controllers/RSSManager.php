@@ -5,12 +5,14 @@ class RSSManager {
 	private $parser;
 	private $configManager;
 	
-	function __construct(RSSParser $rssParser, ConfigurationManager $configManager){
+	public function __construct(RSSParser $rssParser, ConfigurationManager $configManager){
+
 		$this->parser = $rssParser;
 		$this->configManager = $configManager;
 	}
 	
-	function getAllNewsFromRemote($rssFeedsXmlFile){
+	public function getAllNewsFromRemote($rssFeedsXmlFile){
+
 		$arrayRss = simplexml_load_file($rssFeedsXmlFile);
 		$arrayNewsAll = array();
 		foreach ($arrayRss as $rss) {
@@ -30,7 +32,8 @@ class RSSManager {
 	/*
 	 * @Returns: a valid Rss source in success, false on failure
 	 */
-	function checkAndFixRssFeed($rssFeed){
+	public function checkAndFixRssFeed($rssFeed){
+
 		$rssStartChar = '<';
 		$rssAsString = false;
 		try {
@@ -62,11 +65,11 @@ class RSSManager {
 	}
 	
 	private function fixRssFeed($rssAsString,$rssStartCharPosition){
-		$fixedRss= substr($rssAsString, $rssStartCharPosition);
-		return ($fixedRss);
+
+		return substr($rssAsString, $rssStartCharPosition);
 	}
 	
-	function fixIsoAndSpecChars($rssFeed){
+	public function fixIsoAndSpecChars($rssFeed){
 		
 		$feed = $rssFeed;
 		
