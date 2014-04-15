@@ -90,32 +90,20 @@ class TrendingNewsController extends \BaseController {
 
 	public function createTrendingNews(){
 		$trendingNewsArray = array();
-		$trendingNewsArrayWitoutNewsRelated = array();
 		$position = 0;
 		$trendingWordsArray = $this->trendingWords->where('weight', '>', '0')->get();
 		$latestsNewsArray = $this->news->getLatestsNews();
 		foreach ($latestsNewsArray as $news) {
-			$trendingNews = new TrendingNews();
-			$trendingNews->id = $news->id;
-			$trendingNews->weight = $this->sorter->calculateTrendingNewsWeight($trendingWordsArray, $news->title, $news->resume, $news->pubdate, $news->image);
-			$trendingNewsArray[$position] = $trendingNews;
-			$position++;
-		}
-		$newsRealated = false;
-		$index = 0;
-		foreach ($trendingNewsArray as $news) {
-			foreach ($trendingNewsArrayWitoutNewsRelated as $otherNews) {
-				if($this->sorter->newsAreRelated($news->title, $otherNews->title)){
-					$newsRealated = true;
-				}	
-			}
-			if(!$newsRealated){
-				$trendingNewsArrayWitoutNewsRelated[$index] = $news;
-				$index++;
-				$newsRealated = false;
+			$weight = $this->sorter->calculateTrendingNewsWeight($trendingWordsArray, $news->title, $news->resume, $news->pubdate, $news->image);
+			if($weight > 0){
+				$trendingNews = new TrendingNews();
+				$trendingNews->id = $news->id;
+				$trendingNews->weight = $weight;
+				$trendingNewsArray[$position] = $trendingNews;
+				$position++;
 			}
 		}
-		$this->saveAllTrendingNews($trendingNewsArrayWitoutNewsRelated);
+		$this->saveAllTrendingNews($this->removeRelatedNews($trendingNewsArray));
 	}
 
 
@@ -144,5 +132,27 @@ class TrendingNewsController extends \BaseController {
 			}
 		}
 		return $tredingWordsInTitle * 3 + $tredingWordsInResume * 1;
+	}
+
+	public function removeRelatedNews($newsArray){
+		$filteredArray = array();
+		$auxiliarArray = array();
+		$newsRealated = false;
+		$index = 0;
+		foreach ($newsArray as $trendingNews) {
+			$news = $this->news->find($trendingNews->id);
+			foreach ($auxiliarArray as $otherNews) {
+				if($this->sorter->newsAreRelated($news->title, $otherNews->title)){
+					$newsRealated = true;
+				}
+			}
+			if(!$newsRealated){
+				$auxiliarArray[$index] = $news;
+				$filteredArray[$index] = $trendingNews;
+				$index++;
+				$newsRealated = false;
+			}
+		}
+		return $filteredArray;
 	}
 } 

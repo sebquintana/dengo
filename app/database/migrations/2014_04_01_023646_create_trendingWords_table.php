@@ -15,7 +15,7 @@ class CreateTrendingWordsTable extends Migration {
 		Schema::create('trendingWords', function($table)
 		{
 
-		   $table->increments('id')->unique();
+		   $table->string('id', '32')->unique();
 		   $table->string('word');
 		   $table->integer('weight');
 
