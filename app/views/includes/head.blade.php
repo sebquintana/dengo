@@ -5,4 +5,4 @@
 <meta name="author" content="">
 
 {{ HTML::style('css/bootstrap.min-new.css'); }}
-{{ HTML::style('css/starter-template.css'); }}
+{{ HTML::style('css/dengo.css'); }}
