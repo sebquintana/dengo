@@ -18,7 +18,7 @@ class RSSParser {
 		$news = new News();
 		$news->title = strip_tags($item->title);
 		$news->pubdate = DateManager::convertToSql(DateManager::convertToPhp($item->pubDate));
-		$news->source = $source;
+		$news->source = $shortname;
 		$news->resume = $this->shorten(strip_tags($item->description));
 		if ($shortname == 'cronica'){
 			$link = 'http://www.cronica.com.ar' . $item->link;
