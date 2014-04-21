@@ -145,4 +145,14 @@
 		<genre></genre>
 		<country>Argentina</country>
 	</source>
+	<source>
+		<name>TN</name>
+		<shortname>tn</shortname>
+		<type>portal</type>
+		<rssRemote>http://tn.com.ar/rss.xml</rssRemote>
+		<rssLocal>rss/tn.rss</rssLocal>
+		<genre></genre>
+		<country>Argentina</country>
+	</source>
 </rss>
+
