@@ -53,7 +53,7 @@ class Sorter {
 
 	//The comparison function must return an integer less than, equal to, or greater than zero if the first argument is
 	//considered to be respectively less than, equal to, or greater than the second.
-	function cmp($a, $b){
+	public function cmp($a, $b){
 		$ret_value;
 		//Returns < 0 if str1 is less than str2; > 0 if str1 is greater than str2, and 0 if they are equal.
 		$string_ret_val = strcmp($a->getSource(), $b->getSource());
@@ -78,7 +78,7 @@ class Sorter {
 
 		$titleWeight=0;
 		$resumeWeight=0;
-		$multiplyFactorTitle = 2;
+		$multiplyFactorTitle = 3;
 		$base = 1;
 		$multiplyFactorResume = 1;
 		$wordsInTitle = explode(" ",$title);
@@ -93,6 +93,7 @@ class Sorter {
 			$resumeIndex = 0;
 			$foundInTitle = false;
 			$foundInResume = false;
+
 			while(!$foundInTitle && $titleIndex < $wordsInTitleSize){
 				$foundInTitle = $this->searchString($kw,$wordsInTitle[$titleIndex]);
 				$titleIndex++;
@@ -108,98 +109,23 @@ class Sorter {
 				$resumeWeight = $resumeWeight + ($base * $multiplyFactorResume);
 			}
 		}
-		
-		$titleKeyWordMatchPercentage = ($titleWeight * 100) / $maxTitleWeight;
-		$resumeKeyWordMatchPercentage = ($resumeWeight * 100) / $maxResumeWeight;
-		
-		if ($titleKeyWordMatchPercentage == 100){
-			$bonusTitleMatch = 3;
-		}
-		else{
-			$bonusTitleMatch = 0;
-		}
-		
-		if ($resumeKeyWordMatchPercentage == 100){
-			$bonusResumeMatch = 2;
-		}
-		else{
-			$bonusResumeMatch = 0;
-		}
-		
-		$titleWeight = $titleWeight + $bonusTitleMatch;
-		$resumeWeight = $resumeWeight + $bonusResumeMatch;
 		$weight = $titleWeight + $resumeWeight;
 		if ($weight > 0){
 			$weight = $weight + $this->calculateTimeBonus($pubDate);
 		}
-		return($weight);
+		return $weight;
 	}
 
 	public function calculateTrendingNewsWeight($keywordArray,$title,$resume,$pubDate,$image){
-
-		$titleWeight=0;
-		$resumeWeight=0;
-		$multiplyFactorTitle = 2;
-		$base = 1;
-		$multiplyFactorResume = 1;
-		$wordsInTitle = explode(" ",$title);
-		$wordsInResume = explode(" ",$resume);
-		$keywordArraySize=count($keywordArray);
-		$wordsInTitleSize = count($wordsInTitle);
-		$wordsInResumeSize  = count($wordsInResume);
-		$maxTitleWeight = $keywordArraySize * $multiplyFactorTitle;
-		$maxResumeWeight = $keywordArraySize * $multiplyFactorResume;
-		foreach($keywordArray as $kw){
-			$titleIndex = 0;
-			$resumeIndex = 0;
-			$foundInTitle = false;
-			$foundInResume = false;
-			while(!$foundInTitle && $titleIndex < $wordsInTitleSize){
-				 $foundInTitle = $this->searchString($kw->word,$wordsInTitle[$titleIndex]);
-
-				$titleIndex++;
-			}
-			if ($foundInTitle){
-				$titleWeight = $titleWeight + ($base * $multiplyFactorTitle);
-			}
-			while(!$foundInResume && $resumeIndex < $wordsInResumeSize){
-				$foundInResume = $this->searchString($kw,$wordsInResume[$resumeIndex]);
-				$resumeIndex++;
-			}
-			if ($foundInResume){
-				$resumeWeight = $resumeWeight + ($base * $multiplyFactorResume);
-			}
+		$trendingWordsArray = array();
+		$index = 0;
+		foreach ($keywordArray as $trendingWord) {
+			$trendingWordsArray[$index] = $trendingWord->word;
+			$index++;
 		}
-		
-		$titleKeyWordMatchPercentage = ($titleWeight * 100) / $maxTitleWeight;
-		$resumeKeyWordMatchPercentage = ($resumeWeight * 100) / $maxResumeWeight;
-		
-		if ($titleKeyWordMatchPercentage == 100){
-			$bonusTitleMatch = 3;
-		}
-		else{
-			$bonusTitleMatch = 0;
-		}
-		
-		if ($resumeKeyWordMatchPercentage == 100){
-			$bonusResumeMatch = 2;
-		}
-		else{
-			$bonusResumeMatch = 0;
-		}
-		
-		$titleWeight = $titleWeight + $bonusTitleMatch;
-		$resumeWeight = $resumeWeight + $bonusResumeMatch;
-		$weight = $titleWeight + $resumeWeight;
-		if ($weight > 0){
-			$weight = $weight + $this->calculateTimeBonus($pubDate);
-		}
-		if(!is_null($image)){
-			$weight = $weight * 2;
-		}
-		return($weight);
+		$weight = $this->calculateWeight($trendingWordsArray, $title, $resume, $pubDate);
+		return $weight + $this->calculateImageBonus($image, $weight);
 	}
-
 
 	public function searchString($kw,$texto){
 
@@ -219,38 +145,41 @@ class Sorter {
 		}
 		return ($found);
 	}
-	
+
 	public function calculateTimeBonus($pubDate){
 
 		$phpPubDate = DateManager::convertToPhp($pubDate);
 		$currentDate = date('d-m-Y H:i');
 		$timeDelta = strtotime($currentDate) - strtotime($phpPubDate);
 		$timeDeltainMins = $timeDelta / 60;
-		
+		$timeBonus = 0;
+
 		if($timeDeltainMins < 30){
-			$timeBonus = 2;
-		}
-		else{
+			$timeBonus = 3;
+		} else {
 			if ($timeDeltainMins < 60){
-				$timeBonus = 1;
-			}
-			else{
-				$timeBonus = 0;
+					$timeBonus = 1;
 			}
 		}
-		return ($timeBonus);
+		return $timeBonus;
 	}
 
-	public function newsAreRelated($title,$otherTitle){
+	public function calculateImageBonus($image, $weight){
+		$bonus = 0;
+		if(!is_null($image) && $weight > 0){
+			$bonus = 3;
+		}
+		return $bonus;
+	}
 
-		$relationshipLimit = 3;
+	public function newsAreRelated($title,$otherTitle,$relationLimit){
+
+		$relationshipLimit = $relationLimit;
 		$newsKWs =  $this->checkAndCombineWordArray(explode(" ",$title));
 		$otherNewsKW =  $this->checkAndCombineWordArray(explode(" ",$otherTitle));
 		$wordsInCommon = array_uintersect($newsKWs, $otherNewsKW, 'strcasecmp');
 		return count($wordsInCommon) > $relationshipLimit;
 	}
-		
-	
 	
 	public function checkAndCombineWordArray($titleWordsArray){
 		
@@ -293,4 +222,5 @@ class Sorter {
 		}	
 		return ($combinedTitleWordsArray);
 	}
-}
+	
+} 

@@ -43,7 +43,7 @@ class DateManager {
 
 		$date = new DateTime();
 		$date->setTimezone(new DateTimeZone('America/Argentina/Buenos_Aires'));
-		$date->sub(DateInterval::createFromDateString('6 hour'));
+		$date->sub(DateInterval::createFromDateString('9 hour'));
 		return $date->format('Y-m-d H:i:s');
 	}
 	

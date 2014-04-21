@@ -52,27 +52,52 @@ class HomeController extends BaseController {
 		return View::make('search', array('search' => $search));
 	}
 
+	// public function search($keyword, $metodo){
+
+	// 	$newsArrayKey =  array();
+	// 	$i = 0;
+	// 	$keywordArray = explode(" ",$keyword);
+	// 	$keywordsStringForDBSearch = $this->prepareKeyWordsForDBSearch($keywordArray);
+	// 	// agregar el limite de tiempo a la busqueda
+	// 	//$dateLimit  = DateManager::getSearchLimit();
+	// 	$newsArrray = $this->news->whereRaw(("MATCH(title,resume) AGAINST(? IN BOOLEAN MODE)"),array($keywordsStringForDBSearch))->get();
+	// 	foreach($newsArrray as $news){
+	// 		$weight = $this->sorter->calculateWeight($keywordArray,$news->title,$news->resume,$news->pubdate);
+	// 		if ($weight > 0){
+	// 			$trendingNews = new TrendingNews();
+	// 			$trendingNews->weight = $weight;
+	// 			$trendingNews->id = $news->id;
+	// 			$newsArrayKey[$i] = $trendingNews;
+	// 			$i = $i + 1;
+	// 		}
+	// 	}
+	// 	$sortedNewsArrayKey = $this->sorter->NewsSort($newsArrayKey,$metodo);
+	// 	return ($sortedNewsArrayKey);
+	// }
+
 	public function search($keyword, $metodo){
 
 		$newsArrayKey =  array();
 		$i = 0;
 		$keywordArray = explode(" ",$keyword);
 		$keywordsStringForDBSearch = $this->prepareKeyWordsForDBSearch($keywordArray);
-		// agregar el limite de tiempo a la busqueda
-		//$dateLimit  = DateManager::getSearchLimit();
-		$newsArrray = $this->news->whereRaw(("MATCH(title,resume) AGAINST(? IN BOOLEAN MODE)"),array($keywordsStringForDBSearch))->get();
+		$newsArrray = $this->news->searchDate()->whereRaw(("MATCH(title,resume) AGAINST(? IN BOOLEAN MODE)"),array($keywordsStringForDBSearch))->orderBy('pubdate', 'DESC')->get();
+		$relationLimit = 2;
+		if(count($keywordArray) < 3){
+			$relationLimit = 0;
+		}
+
 		foreach($newsArrray as $news){
-			$weight = $this->sorter->calculateWeight($keywordArray,$news->title,$news->resume,$news->pubdate);
-			if ($weight > 0){
+			$newsRelatedByTitle = $this->sorter->newsAreRelated($news->title,$keyword,$relationLimit);
+			$newsRelatedByResume = $this->sorter->newsAreRelated($news->resume,$keyword,$relationLimit);
+			if($newsRelatedByTitle || $newsRelatedByResume){
 				$trendingNews = new TrendingNews();
-				$trendingNews->weight = $weight;
 				$trendingNews->id = $news->id;
 				$newsArrayKey[$i] = $trendingNews;
 				$i = $i + 1;
 			}
 		}
-		$sortedNewsArrayKey = $this->sorter->NewsSort($newsArrayKey,$metodo);
-		return ($sortedNewsArrayKey);
+		return $newsArrayKey;
 	}
 
 	private function prepareKeyWordsForDBSearch($keywordArray){

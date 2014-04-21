@@ -11,4 +11,8 @@ class News extends Eloquent {
 		$latestsNewsArray = $this->where('pubdate', '>=', DateManager::getDengoDateLimit())->get();
 		return $latestsNewsArray;
 	}
+
+	public function scopeSearchDate($query){
+        return $query->where('pubdate', '>=', DateManager::getSearchLimit());
+    }
 }

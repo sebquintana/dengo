@@ -54,7 +54,6 @@ class RSSManager {
 				}
 			}
 		} catch(Exception $e) {
-			//file_put_contents('logs/parserErrors.txt', $e->getMessage(), FILE_APPEND);
 			Log::error($e->getMessage());
 		}
 		

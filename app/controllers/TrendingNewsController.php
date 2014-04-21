@@ -19,7 +19,7 @@ class TrendingNewsController extends \BaseController {
 
 		$trendingNewsArray = array();
 		$position = 0;
-		$trendingWordsArray = $this->trendingWords->where('weight', '>', '0')->get();
+		$trendingWordsArray = $this->trendingWords->all();
 		$latestsNewsArray = $this->news->getLatestsNews();
 		foreach ($latestsNewsArray as $news) {
 			$weight = $this->sorter->calculateTrendingNewsWeight($trendingWordsArray, $news->title, $news->resume, $news->pubdate, $news->image);
@@ -33,7 +33,6 @@ class TrendingNewsController extends \BaseController {
 		}
 		$this->saveAllTrendingNews($this->removeRelatedNews($trendingNewsArray));
 	}
-
 
 	public function saveAllTrendingNews($trendingNewsArray){
 
@@ -68,20 +67,21 @@ class TrendingNewsController extends \BaseController {
 		
 		$filteredArray = array();
 		$auxiliarArray = array();
-		$newsRealated = false;
+		$newsRelated = false;
 		$index = 0;
+		$relationLimit = 2;
 		foreach ($newsArray as $trendingNews) {
 			$news = $this->news->find($trendingNews->id);
 			foreach ($auxiliarArray as $otherNews) {
-				if($this->sorter->newsAreRelated($news->title, $otherNews->title)){
-					$newsRealated = true;
+				if($this->sorter->newsAreRelated($news->title, $otherNews->title, $relationLimit)){
+					$newsRelated = true;
 				}
 			}
-			if(!$newsRealated){
+			if(!$newsRelated){
 				$auxiliarArray[$index] = $news;
 				$filteredArray[$index] = $trendingNews;
 				$index++;
-				$newsRealated = false;
+				$newsRelated = false;
 			}
 		}
 		return $filteredArray;

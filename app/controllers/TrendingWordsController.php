@@ -49,10 +49,11 @@ class TrendingWordsController extends \BaseController {
 		
 		TrendingWords::where('id', '!=', '0')->delete();
 		foreach ($trendingWordsArray as $word) {
-				$word->save();
+				if($word->weight > 0){
+					$word->save();
+				}
 		}
 	}
-
 
 	// Esta opcion seria para que las palabras vallan sumando puntaje y la tabla se reinicie cada X tiempo 
 	// public function saveAllTrengingWords($trendingWordsArray){
