@@ -18,12 +18,14 @@ class RSSManager {
 		foreach ($arrayRss as $rss) {
 			$rssSource = $rss->rssRemote;
 			$fixedRss = $this->checkAndFixRssFeed($rssSource);
-			$isValidRss = ($fixedRss instanceof SimpleXMLElement);
-			if ($isValidRss){
-				$rssName = $rss->name;
-				$rssShortname = $rss->shortname;
-				$arrayNews =  $this->parser->parse($fixedRss,$rssName, $rssShortname);
-				$arrayNewsAll = array_merge($arrayNewsAll, $arrayNews);
+			if($fixedRss != false){
+				$isValidRss = ($fixedRss instanceof SimpleXMLElement);
+				if ($isValidRss){
+					$rssName = $rss->name;
+					$rssShortname = $rss->shortname;
+					$arrayNews =  $this->parser->parse($fixedRss,$rssName, $rssShortname);
+					$arrayNewsAll = array_merge($arrayNewsAll, $arrayNews);
+				}
 			}
 		}
 	
@@ -36,29 +38,24 @@ class RSSManager {
 
 		$rssStartChar = '<';
 		$rssAsString = false;
+		$fixedRss = false;
 		try {
 			$rssAsString = file_get_contents($rssFeed);
-		}
-		catch(Exception $e) {
-			//file_put_contents('app/logs/parserErrors.txt', $e->getMessage(), FILE_APPEND);
-		}
-		if ($rssAsString != false){
-			
-			$rssAsString = $this->fixIsoAndSpecChars($rssAsString);
-			
-			$rssStartCharPosition = stripos($rssAsString, $rssStartChar);
-			
-			if ($rssStartCharPosition != 0){
-				$fixedRssString= $this->fixRssFeed($rssAsString, $rssStartCharPosition);
-				$fixedRss=simplexml_load_string($fixedRssString);
+		
+			if ($rssAsString != false){
+				$rssAsString = $this->fixIsoAndSpecChars($rssAsString);	
+				$rssStartCharPosition = stripos($rssAsString, $rssStartChar);
+				
+				if ($rssStartCharPosition != 0){
+					$fixedRssString= $this->fixRssFeed($rssAsString, $rssStartCharPosition);
+					$fixedRss=simplexml_load_string($fixedRssString);
+				} else {
+					$fixedRss = simplexml_load_file($rssFeed);
+				}
 			}
-			else {
-				$fixedRss = simplexml_load_file($rssFeed);
-				//echo "entre a cargar la fuente " . $rssFeed ." como file \n";
-			}
-		}
-		else {
-			$fixedRss = false;
+		} catch(Exception $e) {
+			//file_put_contents('logs/parserErrors.txt', $e->getMessage(), FILE_APPEND);
+			Log::error($e->getMessage());
 		}
 		
 		return ($fixedRss);

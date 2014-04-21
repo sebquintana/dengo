@@ -63,7 +63,7 @@
 		<genre></genre>
 		<country>Argentina</country>
 	</source>
-	<!--<source>
+	<source>
 		<name>La Capital de Rosario</name>
 		<shortname>lacapital</shortname>
 		<type>provincial</type>
@@ -71,7 +71,7 @@
 		<rssLocal>rss/lacapital.rss</rssLocal>
 		<genre></genre>
 		<country>Argentina</country>
-	</source> -->
+	</source>
 	<source>
 		<name>La Nacion</name>
 		<shortname>lanacion</shortname>
