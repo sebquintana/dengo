@@ -20,6 +20,7 @@ class TrendingNewsController extends \BaseController {
 		$trendingNewsArray = array();
 		$position = 0;
 		$trendingWordsArray = $this->trendingWords->all();
+		Log::info($trendingWordsArray);
 		$latestsNewsArray = $this->news->getLatestsNews();
 		foreach ($latestsNewsArray as $news) {
 			$weight = $this->sorter->calculateTrendingNewsWeight($trendingWordsArray, $news->title, $news->resume, $news->pubdate, $news->image);

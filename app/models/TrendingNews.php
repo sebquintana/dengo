@@ -30,4 +30,19 @@ class TrendingNews extends Eloquent{
 		}
 		return $arrayResumes;
 	}
+
+	public function formatPubdate($pubdate){
+		$now = DateManager::getNowDate();
+		$date = new DateTime($pubdate);
+		$format = "%d d";
+		$lala = date_diff($now,$date)->format('%h');
+		if(date_diff($now,$date)->format('%d') < 1){
+			if(date_diff($now,$date)->format('%h') < 1){
+				$format = "%m m";
+			} else {
+				$format = "%h h";
+			}
+		} 
+		return date_diff($now,$date)->format($format);
+	}
 }

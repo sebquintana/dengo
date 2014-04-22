@@ -54,4 +54,12 @@ class DateManager {
 		$date->sub(DateInterval::createFromDateString('3 day'));
 		return $date->format('Y-m-d H:i:s');
 	}
+
+	public static function getNowDate (){
+
+		$now = new DateTime();
+		$now->setTimezone(new DateTimeZone('America/Argentina/Buenos_Aires'));
+		$now->format('Y-m-d H:i:s');
+		return $now;
+	}
 }

@@ -20,11 +20,15 @@ class TrendingWordsController extends \BaseController {
 		$position = 0;
 		$wordFind = false;
 		foreach ($latestsTitlesArray as $title) {
+			//Log::info("Title: " . $title);
 			$titleWordsArray = explode(" ", $title);
 			foreach ($titleWordsArray as $word) {
+				$word = trim($word);
 				if(strlen($word) > 3){
+				//	Log::info("Word: " . $word . "is valid ? :" . $this->textCleaner->isValidWord($word));
 					if($this->textCleaner->isValidWord($word)){
 						foreach ($trendingWordsArray as $trendingWord) {
+						//	Log::info("word1: " . $word . " word2: " . $trendingWord->word . " ==> Result: " . strcasecmp($trendingWord->word, $word));
 							if(strcasecmp($trendingWord->word, $word) == 0){
 								$wordFind = true;
 								$trendingWord->weight = $trendingWord->weight + 1;
@@ -38,6 +42,7 @@ class TrendingWordsController extends \BaseController {
 							$trendingWordsArray[$position] = $newWord;
 							$position++;
 						}
+						$wordFind = false;
 					}
 				}
 			}

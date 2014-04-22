@@ -154,5 +154,31 @@
 		<genre></genre>
 		<country>Argentina</country>
 	</source>
+	<source>
+		<name>Cancha Llena</name>
+		<shortname>canchallena</shortname>
+		<type>portal</type>
+		<rssRemote>http://canchallena.feedsportal.com/rss</rssRemote>
+		<rssLocal>rss/canchallena.rss</rssLocal>
+		<genre></genre>
+		<country>Argentina</country>
+	</source>
+<!--	<source>
+		<name>BBC</name>
+		<shortname>bbc</shortname>
+		<type>portal</type>
+		<rssRemote>http://www.bbc.co.uk/mundo/ultimas_noticias/index.xml</rssRemote>
+		<rssLocal>rss/bbc.rss</rssLocal>
+		<genre></genre>
+		<country>ReinoUnido</country>
+	</source> -->
+	<source>
+		<name>Marca</name>
+		<shortname>marca</shortname>
+		<type>diario</type>
+		<rssRemote>http://marca.feedsportal.com/rss/portada.xml</rssRemote>
+		<rssLocal>rss/marca.rss</rssLocal>
+		<genre></genre>
+		<country>España</country>
+	</source>
 </rss>
-

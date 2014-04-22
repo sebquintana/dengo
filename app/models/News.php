@@ -15,4 +15,5 @@ class News extends Eloquent {
 	public function scopeSearchDate($query){
         return $query->where('pubdate', '>=', DateManager::getSearchLimit());
     }
+
 }

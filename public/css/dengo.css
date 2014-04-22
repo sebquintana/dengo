@@ -88,3 +88,14 @@ body {
 .searchListResume{
 	font-size: 16px;
 }
+.newsDate{
+	display: -webkit-box;
+	float: right;
+	margin-top: -53px;
+	font-size: large;
+	color: dimgray;
+}
+.searchNewsOptions{
+	float: right;
+	margin-top: 20px;
+}

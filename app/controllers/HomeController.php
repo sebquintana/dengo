@@ -47,6 +47,7 @@ class HomeController extends BaseController {
 		$index = 0;
 		foreach ($trendingNewsSearch as $trendingNews) {
 			$search[$index] = $this->news->find($trendingNews->id);
+			$search[$index]->pubdate = $this->trendingNews->formatPubdate($search[$index]->pubdate);
 			$index++;
 		}
 		return View::make('search', array('search' => $search));
@@ -81,15 +82,16 @@ class HomeController extends BaseController {
 		$i = 0;
 		$keywordArray = explode(" ",$keyword);
 		$keywordsStringForDBSearch = $this->prepareKeyWordsForDBSearch($keywordArray);
-		$newsArrray = $this->news->searchDate()->whereRaw(("MATCH(title,resume) AGAINST(? IN BOOLEAN MODE)"),array($keywordsStringForDBSearch))->orderBy('pubdate', 'DESC')->get();
-		$relationLimit = 2;
+		//$newsArrray = $this->news->searchDate()->whereRaw(("MATCH(title,resume) AGAINST(? IN BOOLEAN MODE)"),array($keywordsStringForDBSearch))->orderBy('pubdate', 'DESC')->get();
+		$newsArrray = $this->news->whereRaw(("MATCH(title,resume) AGAINST(? IN BOOLEAN MODE)"),array($keywordsStringForDBSearch))->orderBy('pubdate', 'DESC')->get();
+		$minRelationNeeded = 1;
 		if(count($keywordArray) < 3){
-			$relationLimit = 0;
+			$minRelationNeeded = 0;
 		}
 
 		foreach($newsArrray as $news){
-			$newsRelatedByTitle = $this->sorter->newsAreRelated($news->title,$keyword,$relationLimit);
-			$newsRelatedByResume = $this->sorter->newsAreRelated($news->resume,$keyword,$relationLimit);
+			$newsRelatedByTitle = $this->sorter->newsAreRelated($news->title,$keyword,$minRelationNeeded);
+			$newsRelatedByResume = $this->sorter->newsAreRelated($news->resume,$keyword,$minRelationNeeded);
 			if($newsRelatedByTitle || $newsRelatedByResume){
 				$trendingNews = new TrendingNews();
 				$trendingNews->id = $news->id;
