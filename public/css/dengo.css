@@ -2,14 +2,14 @@ body {
   padding-top: 50px;
   font-family: 'Droid Sans', sans-serif;
   min-height: 100%;
- 	background-color: #121417;
-	background-image: -moz-linear-gradient(top, #060606, #252a30);
-	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#060606), to(#252a30));
-	background-image: -webkit-linear-gradient(top, #060606, #252a30);
-	background-image: -o-linear-gradient(top, #060606, #252a30);
-	background-image: linear-gradient(to bottom, #060606, #252a30);
-	background-repeat: repeat-x;
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff060606', endColorstr='#ff252a30', GradientType=0);
+  background-color: #121417;
+  background-image: -moz-linear-gradient(top, #060606, #252a30);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#060606), to(#252a30));
+  background-image: -webkit-linear-gradient(top, #060606, #252a30);
+  background-image: -o-linear-gradient(top, #060606, #252a30);
+  background-image: linear-gradient(to bottom, #060606, #252a30);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff060606', endColorstr='#ff252a30', GradientType=0);
  }
 .starter-template {
   padding: 40px 15px;
@@ -27,7 +27,7 @@ body {
 }
 .index-header-list {
 	margin-right: 0;
-	font-size: 18px;
+	font-size: 24px;
 }
 .searchBoxAndButton{
 	margin-top: inherit;
@@ -52,7 +52,7 @@ body {
 	text-align: center;
 }
 .dengoDelDiaList{
-	font-size: 18px;
+	font-size: 24px;
 }
 .nav>li> .dengoDelDiaNews{
 	border: 1px solid rgb(72, 72, 72);
@@ -77,13 +77,16 @@ body {
 	font-size: 18px;
 }
 .searchListTitle{
-	font-size: 20px;
+	font-size: 24px;
 	display: -webkit-box;
 }
 .sourceLogo{
 	width: 150px;
 	height: 50px;
 	display: -webkit-box;
+}
+.searchListNewsTitles{
+	font-size: 24px;
 }
 .searchListResume{
 	font-size: 16px;
