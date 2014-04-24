@@ -21,7 +21,7 @@
 		"post-install-cmd": [
 			"php artisan optimize",
 			"chmod -R 777 app/storage",
-			"chmod -R 777 public",
+			"chmod -R 777 public"
 		],
 		"post-update-cmd": [
 			"php artisan clear-compiled",
