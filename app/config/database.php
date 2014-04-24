@@ -64,11 +64,11 @@ return array(
 		),*/
 		'mysql' => array(
 			'driver'    => 'mysql',
-			'host'      => isset($_SERVER['DB_HOST']) ? $_SERVER['DB_HOST'] : '172.17.42.1',
+			'host'      => '172.17.42.1',
 			'port'	    => '49153',
-			'database'  => isset($_SERVER['DB_NAME']) ? $_SERVER['DB_NAME'] : 'dengoDB',
-			'username'  => isset($_SERVER['DB_USER']) ? $_SERVER['DB_USER'] : 'root',
-			'password'  => isset($_SERVER['DB_PASS']) ? $_SERVER['DB_PASS'] : 'root',
+			'database'  => 'db',
+			'username'  => 'root',
+			'password'  => 'Gx1NChZnJMFL6Qbk',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
