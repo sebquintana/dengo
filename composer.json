@@ -22,7 +22,6 @@
 			"php artisan optimize",
 			"chmod -R 777 app/storage",
 			"chmod -R 777 public",
-			"php artisan migrate"
 		],
 		"post-update-cmd": [
 			"php artisan clear-compiled",
