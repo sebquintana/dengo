@@ -65,7 +65,7 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => '172.17.42.1',
-			'port'	    => '49153',
+			'port'	    => '49156',
 			'database'  => 'db',
 			'username'  => 'root',
 			'password'  => 'Gx1NChZnJMFL6Qbk',
