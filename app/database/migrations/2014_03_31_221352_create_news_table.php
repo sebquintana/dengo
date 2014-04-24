@@ -14,6 +14,8 @@ class CreateNewsTable extends Migration {
 	{
 		Schema::create('news', function($table)
 		{
+			$table->engine = 'MyISAM';
+
 		    $table->string('id', '32')->unique();
 		    $table->string('title', '300');
 		    $table->string('resume', '600');
