@@ -64,11 +64,10 @@ return array(
 		),*/
 		'mysql' => array(
 			'driver'    => 'mysql',
-			'host'      => '172.17.42.1',
-			'port'	    => '49156',
-			'database'  => 'db',
+			'host'      => 'localhost',
+			'database'  => 'dengoDB',
 			'username'  => 'root',
-			'password'  => 'Gx1NChZnJMFL6Qbk',
+			'password'  => 'lp4dengo',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
