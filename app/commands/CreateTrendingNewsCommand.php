@@ -47,6 +47,7 @@ class CreateTrendingNewsCommand extends Command {
 		$this->info("Creating the trending news.");
 		$trendingNewsController->createTrendingNews();
 		$this->info("TrendingNews created succesfully.");
+		$this->info("...");
 	}
 
 	/**

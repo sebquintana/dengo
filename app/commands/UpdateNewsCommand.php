@@ -73,7 +73,6 @@ class UpdateNewsCommand extends Command {
 	function saveAllNewsFromONlineRss($rssFeedsXmlFile){
 		$this->info("Getting all news");
 		$newsArray = $this->rssManager->getAllNewsFromRemote($rssFeedsXmlFile);
-		$this->info("...");
 		$counter = 0;
 		$this->info("Saving news");
 		foreach ($newsArray as $news){
@@ -86,6 +85,6 @@ class UpdateNewsCommand extends Command {
  					$counter++;
  				}
  		}
- 		$this->info("Number of news added: " . $counter);
+ 		$this->info("Number of news added ==> " . $counter);
 	}
 }
