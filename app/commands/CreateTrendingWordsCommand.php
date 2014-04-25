@@ -6,35 +6,14 @@ use Symfony\Component\Console\Input\InputArgument;
 
 class CreateTrendingWordsCommand extends Command {
 
-	/**
-	 * The console command name.
-	 *
-	 * @var string
-	 */
 	protected $name = 'trendingWords:create';
-
-	/**
-	 * The console command description.
-	 *
-	 * @var string
-	 */
 	protected $description = 'Create the trending words and save in database';
 
-	/**
-	 * Create a new command instance.
-	 *
-	 * @return void
-	 */
 	public function __construct()
 	{
 		parent::__construct();
 	}
 
-	/**
-	 * Execute the console command.
-	 *
-	 * @return mixed
-	 */
 	public function fire()
 	{
 		$news = new News();
@@ -47,11 +26,6 @@ class CreateTrendingWordsCommand extends Command {
 		$this->info("TrendingWords created succesfully.");
 	}
 
-	/**
-	 * Get the console command arguments.
-	 *
-	 * @return array
-	 */
 	protected function getArguments()
 	{
 		return array(
@@ -59,11 +33,6 @@ class CreateTrendingWordsCommand extends Command {
 		);
 	}
 
-	/**
-	 * Get the console command options.
-	 *
-	 * @return array
-	 */
 	protected function getOptions()
 	{
 		return array(

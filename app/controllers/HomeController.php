@@ -82,7 +82,6 @@ class HomeController extends BaseController {
 		$i = 0;
 		$keywordArray = explode(" ",$keyword);
 		$keywordsStringForDBSearch = $this->prepareKeyWordsForDBSearch($keywordArray);
-		//$newsArrray = $this->news->searchDate()->whereRaw(("MATCH(title,resume) AGAINST(? IN BOOLEAN MODE)"),array($keywordsStringForDBSearch))->orderBy('pubdate', 'DESC')->get();
 		$newsArrray = $this->news->whereRaw(("MATCH(title,resume) AGAINST(? IN BOOLEAN MODE)"),array($keywordsStringForDBSearch))->orderBy('pubdate', 'DESC')->get();
 		$minRelationNeeded = 1;
 		if(count($keywordArray) < 3){

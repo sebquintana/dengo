@@ -11,11 +11,12 @@ class ConfigurationManager {
 		"(",
 		"\"",
 		"!",
+		"¡",
 		"\'",
 		":",
 		";",
 		"?",
-		"¡",
+        "¿",
 		"=",
 		"/",
 		"&",
@@ -34,6 +35,8 @@ class ConfigurationManager {
 		"]",
 		"}",
 		"\\",
+        "“",
+        "”",    
 		);
 		return $arrayUnwantedCharacters;
 	}

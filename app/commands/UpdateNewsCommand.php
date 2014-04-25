@@ -8,26 +8,9 @@ class UpdateNewsCommand extends Command {
 
 	protected $rssManager;
 	private $rssFeedsXmlFile = 'app/properties/rssFeeds.xml';
-
-	/**
-	 * The console command name.
-	 *
-	 * @var string
-	 */
 	protected $name = 'news:update';
-
-	/**
-	 * The console command description.
-	 *
-	 * @var string
-	 */
 	protected $description = 'Update news database.';
 
-	/**
-	 * Create a new command instance.
-	 *
-	 * @return void
-	 */
 	public function __construct()
 	{
 		parent::__construct();
@@ -36,21 +19,11 @@ class UpdateNewsCommand extends Command {
 		$this->rssManager = new RSSManager($rssParser, $configManager);
 	}
 
-	/**
-	 * Execute the console command.
-	 *
-	 * @return mixed
-	 */
 	public function fire()
 	{
 		$this->saveAllNewsFromONlineRss($this->rssFeedsXmlFile);
 	}
 
-	/**
-	 * Get the console command arguments.
-	 *
-	 * @return array
-	 */
 	protected function getArguments()
 	{
 		return array(
@@ -58,11 +31,6 @@ class UpdateNewsCommand extends Command {
 		);
 	}
 
-	/**
-	 * Get the console command options.
-	 *
-	 * @return array
-	 */
 	protected function getOptions()
 	{
 		return array(
@@ -76,10 +44,7 @@ class UpdateNewsCommand extends Command {
 		$counter = 0;
 		$this->info("Saving news");
 		foreach ($newsArray as $news){
-			//$this->info("en el foreach");
  				if(! News::find(md5($news->title . $news->resume))){
- 					//$this->info("en el if");
- 					//$this->info("vardump:" . var_dump($news));
  					$news->id = md5($news->title . $news->resume);
  					$news->save();
  					$counter++;

@@ -7,9 +7,7 @@ class News extends Eloquent {
 	protected $table = 'news';
 
 	public function getLatestsNews(){
-		$latestsNewsArray = array();
-		$latestsNewsArray = $this->where('pubdate', '>=', DateManager::getDengoDateLimit())->get();
-		return $latestsNewsArray;
+		return $this->where('pubdate', '>=', DateManager::getDengoDateLimit())->get();
 	}
 
 	public function scopeSearchDate($query){

@@ -6,35 +6,14 @@ use Symfony\Component\Console\Input\InputArgument;
 
 class CreateTrendingNewsCommand extends Command {
 
-	/**
-	 * The console command name.
-	 *
-	 * @var string
-	 */
 	protected $name = 'trendingNews:create';
-
-	/**
-	 * The console command description.
-	 *
-	 * @var string
-	 */
 	protected $description = 'Create the tranding news';
 
-	/**
-	 * Create a new command instance.
-	 *
-	 * @return void
-	 */
 	public function __construct()
 	{
 		parent::__construct();
 	}
 
-	/**
-	 * Execute the console command.
-	 *
-	 * @return mixed
-	 */
 	public function fire()
 	{
 		$newsModel = new News();
@@ -43,18 +22,13 @@ class CreateTrendingNewsCommand extends Command {
 		$configurationManager = new ConfigurationManager();
 		$textCleaner = new TextCleaner($configurationManager);
 		$sorter = new Sorter($configurationManager, $textCleaner);
-		$trendingNewsController = new TrendingNewsController($newsModel, $trendingWordsModel, $trendingNews, $sorter);
+		$trendingNewsController = new TrendingNewsController($newsModel, $trendingWordsModel, $trendingNews, $sorter, $textCleaner);
 		$this->info("Creating the trending news.");
 		$trendingNewsController->createTrendingNews();
 		$this->info("TrendingNews created succesfully.");
 		$this->info("...");
 	}
 
-	/**
-	 * Get the console command arguments.
-	 *
-	 * @return array
-	 */
 	protected function getArguments()
 	{
 		return array(
@@ -62,11 +36,6 @@ class CreateTrendingNewsCommand extends Command {
 		);
 	}
 
-	/**
-	 * Get the console command options.
-	 *
-	 * @return array
-	 */
 	protected function getOptions()
 	{
 		return array(

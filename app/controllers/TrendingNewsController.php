@@ -6,12 +6,14 @@ class TrendingNewsController extends \BaseController {
 	protected $trendingWords;
 	protected $trendingNews;
 	protected $sorter;
+	protected $textCleaner;
 
-	public function __construct(News $news, TrendingWords $trendingWords, TrendingNews $trendingNews, Sorter $sorter) {
+	public function __construct(News $news, TrendingWords $trendingWords, TrendingNews $trendingNews, Sorter $sorter, TextCleaner $textCleaner) {
 
 		$this->news = $news;
 		$this->trendingWords = $trendingWords;
 		$this->trendingNews = $trendingNews;
+		$this->textCleaner = $textCleaner;
 		$this->sorter = $sorter;
 	}
 
@@ -20,10 +22,9 @@ class TrendingNewsController extends \BaseController {
 		$trendingNewsArray = array();
 		$position = 0;
 		$trendingWordsArray = $this->trendingWords->all();
-		Log::info($trendingWordsArray);
 		$latestsNewsArray = $this->news->getLatestsNews();
 		foreach ($latestsNewsArray as $news) {
-			$weight = $this->sorter->calculateTrendingNewsWeight($trendingWordsArray, $news->title, $news->resume, $news->pubdate, $news->image);
+			$weight = $this->sorter->calculateTrendingNewsWeight($trendingWordsArray, $this->textCleaner->cleanText($news->title), $this->textCleaner->cleanText($news->resume), $news->pubdate, $news->image);
 			if($weight > 0){
 				$trendingNews = new TrendingNews();
 				$trendingNews->id = $news->id;

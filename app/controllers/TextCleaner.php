@@ -16,6 +16,19 @@ class TextCleaner {
 		return $filteredArray;
 	}
 
+	public function cleanText($text){
+        
+		$unwantedWordsArray = $this->getUnwantedWordsArray();
+        $cleanText = str_replace($this->getUnwantedSymbolsArray(), "", $text);
+        $cleanText = trim($this->normalize($cleanText));
+		foreach($unwantedWordsArray as $pattern){
+			$pattern = "/(^|\s)" . $pattern . "($|\s)/i";
+			$cleanText = preg_replace($pattern, " ", $cleanText);
+		}
+		return $cleanText;
+	}
+
+
 	public function isValidWord($word) {
 
 		$unwantedWordsArray = $this->getUnwantedWordsArray();
@@ -43,23 +56,23 @@ class TextCleaner {
 	}
 
 	public function removeUnwantedTermsFromArray($array){
-
+        
 		$unwantedWordsArray = $this->getUnwantedWordsArray();
 		$filteredArray = array();
 		$index = 0;
 		foreach($array as $title){
-			$filteredTitle = str_replace($this->getUnwantedSymbolsArray(), "", $title);
+            $filteredTitle = str_replace($this->getUnwantedSymbolsArray(), "", $title);
+            $filteredTitle = trim($this->normalize($filteredTitle));
 			foreach($unwantedWordsArray as $pattern){
 				$pattern = "/(^|\s)" . $pattern . "($|\s)/i";
 				$filteredTitle = preg_replace($pattern, " ", $filteredTitle);
 			}
-			$filteredTitle = $this->normalize($filteredTitle);
 			$filteredArray[$index] = $filteredTitle;
 			$index++;
 		}
 		return($filteredArray);
 	}
-	
+
 	public function removeUnwantedWords($text) {
 
 		$unwantedWordsArray = $this->getUnwantedWordsArray();
@@ -89,8 +102,10 @@ class TextCleaner {
 	
 	public function normalize ($string){
 		
-		$originales = 'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðòóôõöøùúûýýþÿRr';
-		$modificadas = 'aaaaaaaceeeeiiiidoooooouuuuybsaaaaaaaceeeeiiiidoooooouuuyybyRr';
+		/*$originales = 'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðòóôõöøùúûýýþÿRr';
+		$modificadas = 'aaaaaaaceeeeiiiidoooooouuuuybsaaaaaaaceeeeiiiidoooooouuuyybyRr';*/
+        $originales =  'ÀÇÉÍÓÚÜÝáæçéíóúu';
+        $modificadas = 'aceiouuyaceioouu';
 		$string = utf8_decode($string);
 		$string = strtr($string, utf8_decode($originales), $modificadas);
 		return utf8_encode($string);

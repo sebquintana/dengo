@@ -81,10 +81,8 @@ class Sorter {
 		$multiplyFactorTitle = 3;
 		$base = 1;
 		$multiplyFactorResume = 1;
-		$wordsInTitle = explode(" ",$title);
-		Log::info("titulo: " . $title);
-		$wordsInResume = explode(" ",$resume);
-		Log::info("resumen: " . $resume);
+		$wordsInTitle = explode(" ", $title);
+		$wordsInResume = explode(" ", $resume);
 		$keywordArraySize=count($keywordArray);
 		$wordsInTitleSize = count($wordsInTitle);
 		$wordsInResumeSize  = count($wordsInResume);
@@ -126,17 +124,12 @@ class Sorter {
 			$index++;
 		}
 		$weight = $this->calculateWeight($trendingWordsArray, $title, $resume, $pubDate);
-		Log::info("Peso: " . $weight);
 		return $weight + $this->calculateImageBonus($image, $weight);
 	}
 
-	public function searchString($kw,$texto){
+	public function searchString($key,$text){
 
 		$found = FALSE;
-		$key = str_replace($this->configManager->getArrayCharacters(), "", $kw);
-		$key = $this->textCleaner->normalize($key);
-		$text = str_replace($this->configManager->getArrayCharacters(), "", $texto);
-		$text = $this->textCleaner->normalize($text);
 		if(stripos($text,$key) !== FALSE){
 			$longitud_kw = strlen($key);
 			$longitud_text = strlen($text);
