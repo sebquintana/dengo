@@ -2,8 +2,6 @@
 
 class SourceController extends \BaseController {
 
-	private $property = 'config/rssFeeds.xml';
-
 	public function index()
 	{
 		$sources = Source::all();

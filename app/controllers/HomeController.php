@@ -42,7 +42,7 @@ class HomeController extends BaseController {
 
 	public function show($search) {
 
-		$trendingNewsSearch = $this->search($search, 'peso');
+		$trendingNewsSearch = $this->search($search);
 		$search = array();
 		$index = 0;
 		foreach ($trendingNewsSearch as $trendingNews) {
@@ -53,30 +53,10 @@ class HomeController extends BaseController {
 		return View::make('search', array('search' => $search));
 	}
 
-	// public function search($keyword, $metodo){
-
-	// 	$newsArrayKey =  array();
-	// 	$i = 0;
-	// 	$keywordArray = explode(" ",$keyword);
-	// 	$keywordsStringForDBSearch = $this->prepareKeyWordsForDBSearch($keywordArray);
-	// 	// agregar el limite de tiempo a la busqueda
-	// 	//$dateLimit  = DateManager::getSearchLimit();
-	// 	$newsArrray = $this->news->whereRaw(("MATCH(title,resume) AGAINST(? IN BOOLEAN MODE)"),array($keywordsStringForDBSearch))->get();
-	// 	foreach($newsArrray as $news){
-	// 		$weight = $this->sorter->calculateWeight($keywordArray,$news->title,$news->resume,$news->pubdate);
-	// 		if ($weight > 0){
-	// 			$trendingNews = new TrendingNews();
-	// 			$trendingNews->weight = $weight;
-	// 			$trendingNews->id = $news->id;
-	// 			$newsArrayKey[$i] = $trendingNews;
-	// 			$i = $i + 1;
-	// 		}
-	// 	}
-	// 	$sortedNewsArrayKey = $this->sorter->NewsSort($newsArrayKey,$metodo);
-	// 	return ($sortedNewsArrayKey);
-	// }
-
-	public function search($keyword, $metodo){
+    /*
+     *  @Return : otra opcion seria devolver, el resultado de la query ordenado por peso.
+     */
+	public function search($keyword){
 
 		$newsArrayKey =  array();
 		$i = 0;

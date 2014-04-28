@@ -21,7 +21,7 @@ class DateManager {
 		if ($date >= $now){
 			$date = $now;
 		}
-		return $date->format('Y-m-d H:i:s');;
+		return $date->format('Y-m-d H:i:s');
 	}
 	
 	public static function convertToPhp ($rssPubDate){

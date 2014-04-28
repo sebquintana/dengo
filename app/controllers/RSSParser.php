@@ -2,18 +2,18 @@
 
 class RSSParser {
 
-	public function parse($rssFeed, $source, $shortname){
+	public function parse($rssFeed, $shortname){
 
 		$newsArray =  array();
 		$i = 0;
 		foreach($rssFeed->channel->item as $item){
-			$newsArray[$i] = $this->createNews($item,$shortname, $source);
+			$newsArray[$i] = $this->createNews($item, $shortname);
 			$i = $i + 1;
 		}
 		return ($newsArray);
 	}
 
-	public function createNews($item, $shortname, $source){
+	public function createNews($item, $shortname){
 
 		$news = new News();
 		$news->title = strip_tags($item->title);

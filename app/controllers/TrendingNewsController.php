@@ -48,21 +48,21 @@ class TrendingNewsController extends \BaseController {
 
 		$titleArray = explode(" ", $title);
 		$resumeArray = explode(" ", $resume);
-		$tredingWordsInTitle = 0;
-		$tredingWordsInResume = 0;
+		$trendingWordsInTitle = 0;
+		$trendingWordsInResume = 0;
 		foreach ($keywordArray as $keyword) {
 			foreach ($titleArray as $titleWord) {
 				if(strcasecmp($keyword->word, $titleWord) == 0){
-					$tredingWordsInTitle++;
+					$trendingWordsInTitle++;
 				}
 			}
 			foreach ($resumeArray as $resumeWord) {
-				if(strcasecmp($keyword->word, $titleWord) == 0){
-					$tredingWordsInResume++;
+				if(strcasecmp($keyword->word, $resumeWord) == 0){
+					$trendingWordsInResume++;
 				}
 			}
 		}
-		return $tredingWordsInTitle * 3 + $tredingWordsInResume * 1;
+		return $trendingWordsInTitle * 3 + $trendingWordsInResume * 1;
 	}
 
 	public function removeRelatedNews($newsArray){

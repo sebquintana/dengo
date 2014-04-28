@@ -8,7 +8,7 @@ class Sorter {
 		$this->textCleaner = $textCleaner;
 	}
 	
-	public function NewsSort($array,$method){
+	public function newsSort($array,$method){
 
 		switch ($method) {
 			case "diario":
@@ -80,11 +80,8 @@ class Sorter {
 		$multiplyFactorResume = 1;
 		$wordsInTitle = explode(" ", $title);
 		$wordsInResume = explode(" ", $resume);
-		$keywordArraySize=count($keywordArray);
 		$wordsInTitleSize = count($wordsInTitle);
 		$wordsInResumeSize  = count($wordsInResume);
-		$maxTitleWeight = $keywordArraySize * $multiplyFactorTitle;
-		$maxResumeWeight = $keywordArraySize * $multiplyFactorResume;
 		foreach($keywordArray as $kw){
 			$titleIndex = 0;
 			$resumeIndex = 0;
@@ -128,9 +125,9 @@ class Sorter {
 
 		$found = FALSE;
 		if(stripos($text,$key) !== FALSE){
-			$longitud_kw = strlen($key);
-			$longitud_text = strlen($text);
-			if ($longitud_kw !== $longitud_text){
+			$keyLength = strlen($key);
+			$textLength = strlen($text);
+			if ($keyLength !== $textLength){
 				$found = FALSE;
 			}else{
 				$found = TRUE;
@@ -144,13 +141,13 @@ class Sorter {
 		$phpPubDate = DateManager::convertToPhp($pubDate);
 		$currentDate = date('d-m-Y H:i');
 		$timeDelta = strtotime($currentDate) - strtotime($phpPubDate);
-		$timeDeltainMins = $timeDelta / 60;
+		$timeDeltaInMinutes = $timeDelta / 60;
 		$timeBonus = 0;
 
-		if($timeDeltainMins < 30){
+		if($timeDeltaInMinutes < 30){
 			$timeBonus = 3;
 		} else {
-			if ($timeDeltainMins < 60){
+			if ($timeDeltaInMinutes < 60){
 					$timeBonus = 1;
 			}
 		}

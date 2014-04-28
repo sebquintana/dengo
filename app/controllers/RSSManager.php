@@ -23,7 +23,7 @@ class RSSManager {
 				if ($isValidRss){
 					$rssName = $rss->name;
 					$rssShortname = $rss->shortname;
-					$arrayNews =  $this->parser->parse($fixedRss,$rssName, $rssShortname);
+					$arrayNews =  $this->parser->parse($fixedRss, $rssShortname);
 					$arrayNewsAll = array_merge($arrayNewsAll, $arrayNews);
 				}
 			}
