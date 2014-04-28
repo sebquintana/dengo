@@ -2,12 +2,9 @@
 
 class Sorter {
 
-	private $configManager;
 	private $textCleaner;
 	
-	public function __construct(ConfigurationManager $configurationManager,TextCleaner $textCleaner){
-
-		$this->configManager = $configurationManager;
+	public function __construct(TextCleaner $textCleaner){
 		$this->textCleaner = $textCleaner;
 	}
 	
@@ -183,22 +180,22 @@ class Sorter {
 		$limit = count ($titleWordsArray);
 		$index=0;
 		while ($index < $limit){
-			$currentWord = $this->textCleaner->removeUnwantedCharsFromStringForRegex($titleWordsArray[$index]);
+			$currentWord = $this->textCleaner->removeUnwantedSymbolsFromString($titleWordsArray[$index]);
 			$result = preg_match_all('"([A-Z][a-zA-Z]*)+[^:]$"', $currentWord, $arr, PREG_PATTERN_ORDER);
 			if ($result > 0){
 				$index++;
 				$combinedWord=$currentWord;
 				while ($result > 0 && ($index +1) <= $limit){
-					$nextWord = $this->textCleaner->removeUnwantedCharsFromStringForRegex($titleWordsArray[$index]);
+					$nextWord = $this->textCleaner->removeUnwantedSymbolsFromString($titleWordsArray[$index]);
 					$result = preg_match_all('"([A-Z][a-zA-Z]*)+[^:]$"', $nextWord, $arr, PREG_PATTERN_ORDER);
 					if ($result > 0){
-							$combinedWord = $combinedWord . " " . $this->textCleaner->removeUnwantedTermsFromString($nextWord);
+							$combinedWord = $combinedWord . " " . $this->textCleaner->removeUnwantedSymbolsFromString($nextWord);
 							$index++;
 					} else {
 							//Si entre aca es porque o no empieza con mayusculas o termina con ":"
 							$result = preg_match_all('"([A-Z][a-zA-Z]*)+"', $nextWord, $arr, PREG_PATTERN_ORDER);
 							if($result > 0){
-								$combinedWord = $combinedWord . " " . $this->textCleaner->removeUnwantedTermsFromString($nextWord);
+								$combinedWord = $combinedWord . " " . $this->textCleaner->removeUnwantedSymbolsFromString($nextWord);
 								//Fuerzo result a 0 porque se que aca comienza una cita textual (despues de los :)
 								$result=0;
 							} else {
@@ -209,7 +206,7 @@ class Sorter {
 				}
 			} else {
 					//Si entre aca es porque o no empieza con mayusculas
-					$combinedWord = $this->textCleaner->removeUnwantedTermsFromString($currentWord);
+					$combinedWord = $this->textCleaner->removeUnwantedSymbolsFromString($currentWord);
 					}
 			$index++;
 			if (strlen($combinedWord) > 3){

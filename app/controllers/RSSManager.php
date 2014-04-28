@@ -3,12 +3,12 @@
 class RSSManager {
 	
 	private $parser;
-	private $configManager;
+	private $textCleaner;
 	
-	public function __construct(RSSParser $rssParser, ConfigurationManager $configManager){
+	public function __construct(RSSParser $rssParser, TextCleaner $textCleaner){
 
 		$this->parser = $rssParser;
-		$this->configManager = $configManager;
+		$this->textCleaner = $textCleaner;
 	}
 	
 	public function getAllNewsFromRemote($rssFeedsXmlFile){
@@ -81,8 +81,8 @@ class RSSManager {
 		$feed = str_replace("&ldquo;", '"', $feed);
 		$feed = str_replace("&rdquo;", '"',$feed);
 		
-		$originalAcronim = $this->configManager->getArrayAcronim();
-		$replaceAcronim = $this->configManager->getArrayReplaceAcronim();
+		$originalAcronim = $this->textCleaner->getArrayAcronim();
+		$replaceAcronim = $this->textCleaner->getArrayReplaceAcronim();
 		$feed = str_replace($originalAcronim, $replaceAcronim, $feed);
 		
 		return $feed;

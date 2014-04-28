@@ -2,13 +2,7 @@
 
 class TextCleaner {
 	
-	private $configManager;
-	private $unwantedCharsForRegex = array(".","“","”",",",")","(","\"","!","\'",";","?","¡","=","/","&","#","°","*","¬","|","@","·","~","½","{","[","]","}","\\",);
-	
-	public function __construct(ConfigurationManager $configManager){
-
-		$this->configManager = $configManager;
-	}
+	private $unwantedSymbols = array(".",",",")","(","\"","!","¡","\'",":",";","?","¿","=","/","&","#","°","*","¬","|","@","·","~","½","\"","{","[","]","}","\\","“","”");
 	
 	public function cleanArray($array) {
 
@@ -50,11 +44,6 @@ class TextCleaner {
 		return $unwantedWordsArray;
 	}
 
-	public function getUnwantedSymbolsArray(){
-
-		return $this->configManager->getArrayCharacters();
-	}
-
 	public function removeUnwantedTermsFromArray($array){
         
 		$unwantedWordsArray = $this->getUnwantedWordsArray();
@@ -90,16 +79,11 @@ class TextCleaner {
 		return preg_replace('/\s\s+/', ' ', $filteredText);
 	}
 	
-	public function removeUnwantedCharsFromStringForRegex($string){
+	public function removeUnwantedSymbolsFromString($string){
 
-		return str_replace($this->unwantedCharsForRegex, "", $string);
+		return str_replace($this->unwantedSymbols, "", $string);	
 	}
-	
-	public function removeUnwantedTermsFromString($string){
 
-		return str_replace($this->getUnwantedSymbolsArray(), "", $string);
-	}
-	
 	public function normalize ($string){
 		
 		/*$originales = 'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðòóôõöøùúûýýþÿRr';
@@ -109,5 +93,28 @@ class TextCleaner {
 		$string = utf8_decode($string);
 		$string = strtr($string, utf8_decode($originales), $modificadas);
 		return utf8_encode($string);
+	}
+
+	public function getArrayAcronim(){
+	
+		$arrayAcronims = array(
+		"EE.UU.",
+		"L.A.",
+		);
+		return $arrayAcronims;
+	}
+	
+	public function getArrayReplaceAcronim(){
+
+		$arrayReplaceAcronim = array(
+		"EEUU",
+		"LA",
+		);
+		return $arrayReplaceAcronim;
+	}
+
+	public function getUnwantedSymbolsArray() {
+
+			return $this->unwantedSymbols;
 	}
 }

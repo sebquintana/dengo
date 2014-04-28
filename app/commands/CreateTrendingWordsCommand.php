@@ -18,8 +18,7 @@ class CreateTrendingWordsCommand extends Command {
 	{
 		$news = new News();
 		$trendingNews = new TrendingNews();
-		$configManager = new ConfigurationManager();
-		$textCleaner = new TextCleaner($configManager);
+		$textCleaner = new TextCleaner();
 		$trendingWordsController = new TrendingWordsController($textCleaner, $trendingNews, $news);
 		$this->info("Creating the trending words.");
 		$trendingWordsController->createTrendingWords();

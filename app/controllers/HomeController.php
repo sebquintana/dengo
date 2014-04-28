@@ -3,14 +3,14 @@
 class HomeController extends BaseController {
 
 	protected $news;
-	protected $configurationManager;
+	protected $textCleaner;
 	protected $sorter;
 	protected $trendingNews;
 
-	public function __construct(News $news, ConfigurationManager $configurationManager, Sorter $sorter, TrendingNews $trendingNews){
+	public function __construct(News $news, TextCleaner $textCleaner, Sorter $sorter, TrendingNews $trendingNews){
 
 		$this->news = $news;
-		$this->configurationManager = $configurationManager;
+		$this->textCleaner = $textCleaner;
 		$this->sorter = $sorter;
 		$this->trendingNews = $trendingNews;
 	}
@@ -105,7 +105,7 @@ class HomeController extends BaseController {
 
 		$keywordsStringForDBSearch = '';
 		foreach ($keywordArray as $kw){
-			$key = str_replace($this->configurationManager->getArrayCharacters(), "", $kw);
+			$key = $this->textCleaner->removeUnwantedSymbolsFromString($kw);
 			$keywordsStringForDBSearch = $keywordsStringForDBSearch . '%'.$key.'%' . ' ';
 		}
 		return ($keywordsStringForDBSearch);

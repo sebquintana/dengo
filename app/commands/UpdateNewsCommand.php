@@ -15,8 +15,8 @@ class UpdateNewsCommand extends Command {
 	{
 		parent::__construct();
 		$rssParser = new RSSParser();
-		$configManager = new ConfigurationManager();
-		$this->rssManager = new RSSManager($rssParser, $configManager);
+		$textCleaner = new TextCleaner();
+		$this->rssManager = new RSSManager($rssParser, $textCleaner);
 	}
 
 	public function fire()

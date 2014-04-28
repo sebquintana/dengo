@@ -7,7 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'BaseController' => $baseDir . '/app/controllers/BaseController.php',
-    'ConfigurationManager' => $baseDir . '/app/controllers/ConfigurationManager.php',
     'CreateNewsTable' => $baseDir . '/app/database/migrations/2014_03_31_221352_create_news_table.php',
     'CreateSourcesTable' => $baseDir . '/app/database/migrations/2014_03_31_221403_create_sources_table.php',
     'CreateTrendingNewsCommand' => $baseDir . '/app/commands/CreateTrendingNewsCommand.php',
@@ -34,5 +33,4 @@ return array(
     'TrendingWordsController' => $baseDir . '/app/controllers/TrendingWordsController.php',
     'UpdateNewsCommand' => $baseDir . '/app/commands/UpdateNewsCommand.php',
     'UpdateSourcesCommand' => $baseDir . '/app/commands/UpdateSourcesCommand.php',
-    'User' => $baseDir . '/app/models/User.php',
 );
