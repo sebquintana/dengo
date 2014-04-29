@@ -1,6 +1,6 @@
 <?php
 
-Route::get('/about', function()
+Route::get('/quienesSomos', function()
 {
     return View::make('about');
 });

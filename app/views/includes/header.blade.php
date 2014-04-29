@@ -23,8 +23,8 @@
             <ul class="nav navbar-nav navbar-right index-header-list" style="margin-right: 0">
                 <li class="active"><a href="/">Ultimas Noticias</a></li>
                 <!--<li ><a href="#about">Denguealas</a></li> -->
-                <li ><a href="about">Quienes Somos</a></li>
-                <li ><a href="#contact">Contacto</a></li>
+                <li ><a href="quienesSomos">Quienes Somos</a></li>
+               <!--  <li ><a href="#contact">Contacto</a></li> -->
                 <!--<li ><a href="#contact">Secciones</a></li> -->
                 <li ></li>
             </ul>
