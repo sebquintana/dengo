@@ -2,7 +2,7 @@
 
 <div class="well span12 searchContainer">
 
-  <h3 class="searchListTitle">Noticias Encontradas:</h2>
+  <h2 class="searchListTitle">Noticias Encontradas:</h2>
   <div class="acordeon">
       @foreach ($search as $result)
 
