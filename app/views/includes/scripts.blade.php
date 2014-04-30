@@ -9,6 +9,7 @@
 	{{ HTML::script('js/acordeon.js') }}
 	{{ HTML::script('js/fancybox/jquery.fancybox.js') }}
 	{{ HTML::script('js/theater.js') }}
+	{{ HTML::script('js/googleAnalytics.js') }}
 
 
     <!-- UserVoice JavaScript SDK (only needed once on a page) -->
