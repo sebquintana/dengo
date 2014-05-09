@@ -85,8 +85,11 @@ class HomeController extends BaseController {
 
 		$keywordsStringForDBSearch = '';
 		foreach ($keywordArray as $kw){
-			$key = $this->textCleaner->cleanText($kw);
+		//	Log::info("Original: " . $kw);
+			$key = $this->textCleaner->removeUnwantedSymbolsFromString($kw);
+			//$key = $this->textCleaner->($kw);
 			$keywordsStringForDBSearch = $keywordsStringForDBSearch . '%'.$key.'%' . ' ';
+		//	Log::info("Fixed: " . $key);
 		}
 		return ($keywordsStringForDBSearch);
 	}
