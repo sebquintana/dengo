@@ -64,7 +64,7 @@ class HomeController extends BaseController {
 		$keywordsStringForDBSearch = $this->prepareKeyWordsForDBSearch($keywordArray);
 		$newsArrray = $this->news->whereRaw(("MATCH(title,resume) AGAINST(? IN BOOLEAN MODE)"),array($keywordsStringForDBSearch))->orderBy('pubdate', 'DESC')->get();
 		$minRelationNeeded = 1;
-		if(count($keywordArray) < 3){
+		if(count($keywordArray) < 2){
 			$minRelationNeeded = 0;
 		}
 
@@ -85,7 +85,7 @@ class HomeController extends BaseController {
 
 		$keywordsStringForDBSearch = '';
 		foreach ($keywordArray as $kw){
-			$key = $this->textCleaner->removeUnwantedSymbolsFromString($kw);
+			$key = $this->textCleaner->cleanText($kw);
 			$keywordsStringForDBSearch = $keywordsStringForDBSearch . '%'.$key.'%' . ' ';
 		}
 		return ($keywordsStringForDBSearch);

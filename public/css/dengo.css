@@ -37,6 +37,12 @@ a .index-header-list {
 .searchBoxAndButton{
 	margin-top: inherit;
 }
+.searchBox:focus {
+	border-color: #772953;
+	outline: 0;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px #772953;
+	box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px #772953;
+}
 .searchButton{
 	background-color: rgba(92, 92, 92, 0.75);
 	color: #FFFFFF;

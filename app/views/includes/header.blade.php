@@ -14,7 +14,7 @@
         <div class="collapse navbar-collapse headerBarItems">
            {{ Form::open(array('route' => 'store', 'class' => 'navbar-form')) }}
               <div class="col-lg-2 input-group navbar-right searchBoxAndButton"> 
-                {{ Form::text('search', null, array('class' => 'form-control')) }}
+                {{ Form::text('search', null, array('class' => 'form-control searchBox')) }}
                 <div class="input-group-btn">
                    {{ Form::submit('Buscar', array('class' => 'btn btn-default searchButton')) }}
                 </div>
