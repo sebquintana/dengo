@@ -2,21 +2,23 @@ body {
   padding-top: 50px;
   font-family: 'Droid Sans', sans-serif;
   min-height: 100%;
-  background-color: #121417;
+  background-color: rgba(224, 225, 235, 0.33);
+  /*background-color: #121417;
   background-image: -moz-linear-gradient(top, #060606, #252a30);
   background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#060606), to(#252a30));
   background-image: -webkit-linear-gradient(top, #060606, #252a30);
   background-image: -o-linear-gradient(top, #060606, #252a30);
   background-image: linear-gradient(to bottom, #060606, #252a30);
   background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff060606', endColorstr='#ff252a30', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff060606', endColorstr='#ff252a30', GradientType=0); */
  }
 .starter-template {
   padding: 40px 15px;
   text-align: center;
 }
 .headerBar{
-	padding-bottom: 13px;	
+	padding-bottom: 13px;
+	background-color: #772953;	
 }
 .dengoLogo {
  	margin-left: 60px; 
@@ -29,6 +31,9 @@ body {
 	margin-right: 0;
 	font-size: 24px;
 }
+a .index-header-list {
+	color: #FFF;
+}	
 .searchBoxAndButton{
 	margin-top: inherit;
 }
@@ -57,6 +62,12 @@ body {
 .nav>li> .dengoDelDiaNews{
 	border: 1px solid rgb(72, 72, 72);
 }
+.dengoDelDiaNews {
+	color: #772953;
+}
+a:hover, a:focus {
+	color: #772953;
+}
 .trendingNewsContainer{
 	background:#333333;
 	position:relative;
@@ -72,13 +83,15 @@ body {
 	border: none;
 }
 .searchContainer {
-	background-color: #333333;
+	/*background-color: #333333;*/
+	background-color: #FFFFFF;
 	color: #33b5e5;
 	font-size: 18px;
 }
 .searchListTitle{
 	font-size: 24px;
 	display: -webkit-box;
+	color: black;
 }
 .sourceLogo{
 	width: 150px;
@@ -87,6 +100,7 @@ body {
 }
 .searchListNewsTitles{
 	font-size: 24px;
+	color: black;
 }
 .searchListResume{
 	font-size: 16px;
