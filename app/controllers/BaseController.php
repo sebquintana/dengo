@@ -1,6 +1,9 @@
 <?php
+//use Laracasts\Commander\CommanderTrait;
 
 class BaseController extends Controller {
+
+//	use CommanderTrait;
 
 	/**
 	 * Setup the layout used by the controller.
@@ -13,6 +16,8 @@ class BaseController extends Controller {
 		{
 			$this->layout = View::make($this->layout);
 		}
+
+		View::share('currentUser', Auth::user());
 	}
 
 }

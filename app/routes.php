@@ -1,10 +1,21 @@
 <?php
 
-Route::get('/quienesSomos', function()
-{
-    return View::make('about');
-});
+Route::get('/', [
+	'as' => 'home',
+	'uses' => 'TrendingNewsController@index'
+]);
 
-Route::resource('/', 'HomeController');
+Route::post('search',[
+	'as' => 'search_path',
+	'uses' => 'SearchController@store'
+]);
 
-Route::resource('{keyword}', 'HomeController@show' );
+Route::get('@{title}', [
+	'as' => 'trending_search_path',
+	'uses' => 'SearchController@show'
+]);
+
+Route::get('about', [
+	'as' => 'about_path',
+	'uses' => 'AboutUsController@index'
+]);

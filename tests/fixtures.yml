@@ -1,0 +1,8 @@
+Dengo\News\News:
+ id: $string$integer
+ title: $string
+ resume: $string
+ link: $string
+ image: $string
+ pubdate: $date
+ source: $string

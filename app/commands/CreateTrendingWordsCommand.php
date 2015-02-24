@@ -3,6 +3,9 @@
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
+use Dengo\News\EloquentNewsRepository;
+use Dengo\TrendingNews\TrendingNews;
+use Dengo\Text\TextCleaner;
 
 class CreateTrendingWordsCommand extends Command {
 
@@ -16,10 +19,11 @@ class CreateTrendingWordsCommand extends Command {
 
 	public function fire()
 	{
-		$news = new News();
+		$newsRepository = new EloquentNewsRepository();
 		$trendingNews = new TrendingNews();
 		$textCleaner = new TextCleaner();
-		$trendingWordsController = new TrendingWordsController($textCleaner, $trendingNews, $news);
+		$trendingWordsController = new TrendingWordsController($textCleaner, $trendingNews, $newsRepository);
+
 		$this->info("Creating the trending words.");
 		$trendingWordsController->createTrendingWords();
 		$this->info("TrendingWords created succesfully.");

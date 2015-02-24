@@ -1,22 +1,27 @@
-<?php
+<?php 
+
+use Dengo\TrendingWords\TrendingWords;
+use Dengo\TrendingNews\TrendingNews;
+use Dengo\News\INewsRepository;
+use Dengo\Text\TextCleaner;
 
 class TrendingWordsController extends \BaseController {
 
 	protected $textCleaner;
 	protected $trendingNews;
-	protected $news;
+	protected $newsRepository;
 
-	public function __construct(TextCleaner $textCleaner, TrendingNews $trendingNews, News $news) {
+	public function __construct(TextCleaner $textCleaner, TrendingNews $trendingNews, INewsRepository $newsRepository) {
 
 		$this->textCleaner = $textCleaner;
 		$this->trendingNews = $trendingNews;
-		$this->news = $news;
+		$this->newsRepository = $newsRepository;
 	}
 
 	public function createTrendingWords(){
 
 		$trendingWordsArray = array();
-		$latestsTitlesArray = $this->textCleaner->cleanArray($this->trendingNews->getNewsTitles($this->news->getLatestsNews()));
+		$latestsTitlesArray = $this->textCleaner->cleanArray($this->trendingNews->getNewsTitles($this->newsRepository->getLatestsNews()));
 		$position = 0;
 		$wordFind = false;
 		foreach ($latestsTitlesArray as $title) {
@@ -53,4 +58,5 @@ class TrendingWordsController extends \BaseController {
 				}
 		}
 	}
+
 }

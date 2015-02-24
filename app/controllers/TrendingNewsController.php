@@ -1,28 +1,46 @@
 <?php
 
+use Dengo\TrendingNews\TrendingNews;
+use Dengo\TrendingNews\ITrendingNewsRepository;
+use Dengo\TrendingWords\ITrendingWordsRepository;
+use Dengo\News\INewsRepository;
+use Dengo\Text\TextCleaner;
+use Dengo\Order\Sorter;
+
 class TrendingNewsController extends \BaseController {
 
-	protected $news;
-	protected $trendingWords;
-	protected $trendingNews;
 	protected $sorter;
 	protected $textCleaner;
+	protected $trendingNewsRepository;
+	protected $trendingWordsRepository;
+	protected $newsRepository;
 
-	public function __construct(News $news, TrendingWords $trendingWords, TrendingNews $trendingNews, Sorter $sorter, TextCleaner $textCleaner) {
+	public function __construct(Sorter $sorter, TextCleaner $textCleaner, ITrendingNewsRepository $trendingNewsRepository, ITrendingWordsRepository $trendingWordsRepository, INewsRepository $newsRepository ) {
 
-		$this->news = $news;
-		$this->trendingWords = $trendingWords;
-		$this->trendingNews = $trendingNews;
 		$this->textCleaner = $textCleaner;
 		$this->sorter = $sorter;
+		$this->trendingNewsRepository = $trendingNewsRepository;
+		$this->trendingWordsRepository = $trendingWordsRepository;
+		$this->newsRepository = $newsRepository;
+	}
+
+	public function index()
+	{
+		$trendingNewsArray = $this->trendingNewsRepository->all();
+
+		$newsArray = $this->newsRepository->getNewsArrayById($trendingNewsArray);
+		
+		return View::make('pages.home', compact('newsArray'));
 	}
 
 	public function createTrendingNews(){
 
 		$trendingNewsArray = array();
 		$position = 0;
-		$trendingWordsArray = $this->trendingWords->all();
-		$latestsNewsArray = $this->news->getLatestsNews();
+		
+		$trendingWordsArray = $this->trendingWordsRepository->all();
+		$latestsNewsArray = $this->newsRepository->getLatestsNews();
+		
 		foreach ($latestsNewsArray as $news) {
 			$weight = $this->sorter->calculateTrendingNewsWeight($trendingWordsArray, $this->textCleaner->cleanText($news->title), $this->textCleaner->cleanText($news->resume), $news->pubdate, $news->image);
 			if($weight > 0){
@@ -38,9 +56,10 @@ class TrendingNewsController extends \BaseController {
 
 	public function saveAllTrendingNews($trendingNewsArray){
 
-		$this->trendingNews->where('id', '!=', '0')->delete();
+		$this->trendingNewsRepository->deleteAll();
+
 		foreach ($trendingNewsArray as $news) {
-				$news->save();
+				$this->trendingNewsRepository->save($news);
 		}
 	}
 
@@ -73,7 +92,7 @@ class TrendingNewsController extends \BaseController {
 		$index = 0;
 		$relationLimit = 2;
 		foreach ($newsArray as $trendingNews) {
-			$news = $this->news->find($trendingNews->id);
+			$news = $this->newsRepository->findById($trendingNews->id);
 			foreach ($auxiliarArray as $otherNews) {
 				if($this->sorter->newsAreRelated($news->title, $otherNews->title, $relationLimit)){
 					$newsRelated = true;
@@ -88,4 +107,4 @@ class TrendingNewsController extends \BaseController {
 		}
 		return $filteredArray;
 	}
-} 
+}

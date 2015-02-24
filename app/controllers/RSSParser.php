@@ -1,5 +1,8 @@
 <?php
 
+use Dengo\News\News;
+use Dengo\Dates\DateManager;
+
 class RSSParser {
 
 	public function parse($rssFeed, $shortname){

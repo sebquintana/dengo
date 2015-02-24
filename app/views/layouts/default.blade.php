@@ -5,11 +5,12 @@
 </head>
 <body>
 
-	<header class="row">
+	<header>
 			@include('includes.header')
 	</header>	
-	
-	<div id="main" class="container starter-template">
+
+	<div class="container">
+			@include('flash::message')
 			@yield('content')	
 	
 	</div>
@@ -19,6 +20,5 @@
 	</footer>
 
 		@include('includes.scripts')
-
 </body>
 </html>

@@ -1,2 +1,4 @@
 app/config/database.php
 .idea/
+vendor/
+.env*

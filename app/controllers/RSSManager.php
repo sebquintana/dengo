@@ -1,4 +1,5 @@
 <?php
+use Dengo\Text\TextCleaner;
 
 class RSSManager {
 	
@@ -10,11 +11,15 @@ class RSSManager {
 		$this->parser = $rssParser;
 		$this->textCleaner = $textCleaner;
 	}
-	
-	public function getAllNewsFromRemote($rssFeedsXmlFile){
+	/*
+	* @Returns: all news from all sources
+	*/
+	public function getAllNews($rssFeedsXmlFile){
 
 		$arrayRss = simplexml_load_file($rssFeedsXmlFile);
+		
 		$arrayNewsAll = array();
+
 		foreach ($arrayRss as $rss) {
 			$rssSource = $rss->rssRemote;
 			$fixedRss = $this->checkAndFixRssFeed($rssSource);
