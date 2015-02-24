@@ -1,5 +1,0 @@
-app/config/database.php
-.idea/
-.env*
-vendor
-vendor/
