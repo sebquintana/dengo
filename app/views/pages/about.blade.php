@@ -5,7 +5,7 @@
 <div class="row">
     <div class="col-sm-12 col-md-12 col-lg-12 jumbotron about" style="background-image: url('images/mapuches.png');">
        <div class="aboutTextBackground">
-            <h1>¿ Dengo ? </h1>
+            <h1> ¿ Dengo ? </h1>
             <p>Dengo viene de la lengua de uno de nuestros pueblos originarios los "Mapuches" (nombre que significa "mapu", tierra y "che", gente , es decir, gente de la tierra, "nativos") , y significa , Noticia.
             Estas noticias son las que Dengo tratará de llevar a cada unos de ustedes.</p>
 
