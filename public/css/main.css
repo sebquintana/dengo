@@ -1,8 +1,95 @@
 body {
-  padding-top: 70px; }
+  padding-top: 50px;
+  padding-bottom: 0;
+  background-image: url("images/pattern.png");
+  font-size: 2rem;
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif; }
 
 .container h1:first-of-type {
   margin-top: 0; }
+
+.navbar {
+  background-color: rgba(102, 0, 51, 0.9);
+  color: #FFFFFF; }
+
+.dengo-logo {
+  font-size: 35px;
+  color: #ef6d3b;
+  padding: 3%; }
+
+.search-input-group {
+  padding: 3%; }
+
+.collapsed-button {
+  margin-top: 6%; }
+
+.trending-news-container {
+  background-color: rgba(26, 22, 24, 0.22);
+  overflow: auto;
+  margin-top: 5%;
+  text-align: center; }
+
+.trending-news-container .jumbotron {
+  background-color: rgba(238, 238, 238, 0);
+  font-weight: bold;
+  letter-spacing: 4px; }
+
+.trending-news {
+  background-color: #FFFFFF;
+  background-color: #eee;
+  overflow: auto;
+  margin: auto;
+  width: 90%;
+  border: none; }
+
+.trending-news a {
+  color: #000000;
+  letter-spacing: -.03em;
+  line-height: 1.2;
+  font-size: 2.5rem; }
+
+.trending-news-img {
+  float: right;
+  margin-left: 10px;
+  height: 100px; }
+
+.search-title {
+  /* margin-top: 55px;*/
+  margin: auto;
+  font-weight: bold; }
+
+.search-result-item {
+  background-color: #eee;
+  overflow: auto; }
+
+.search-result-item a {
+  float: left;
+  clear: both;
+  margin-top: 3%;
+  color: #520029;
+  font-size: 2.5rem;
+  letter-spacing: 1px; }
+
+.search-result-item p {
+  float: left;
+  clear: both; }
+
+.source-logo {
+  float: left; }
+
+.news-date {
+  float: right;
+  font-size: 1.5rem;
+  font-style: italic; }
+
+.search-item-img {
+  max-height: 100px;
+  float: left;
+  max-height: 80%;
+  max-width: 80%; }
+
+footer {
+  background-color: #000000; }
 
 .status-post {
   border: 1px solid #e3e3e3;
