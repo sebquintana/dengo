@@ -23,8 +23,12 @@ class EloquentNewsRepository implements INewsRepository {
 	}
 
 	public function getSearchNews(){
-        //return News::where('pubdate', '>=', DateManager::getSearchLimit());
-       return $this->all();
+
+		//$this->getLatestsNews();
+
+        return News::where('pubdate', '>=', DateManager::getSearchLimit())->get();
+     // for test: saco el limite para que me muestre las de la babse de datos de tests
+     //  return $this->all();
     }
 
 	public function findById($id)
